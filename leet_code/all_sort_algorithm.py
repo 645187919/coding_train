@@ -51,16 +51,17 @@
 # <与冒泡的区别：冒泡两两比较将大的值往后移，选择是设定一个min的索引然后拿选定的最小值和右边的无序序列分别进行遍历比较，
 # 最终得到最小值与min索引指向的值进行交换。
 def select_sort(alist):
-
+    count=0
     n = len(alist)
-    #外层循环用于控制寻找最大元素的次数
-    for i in range(n):
+    #确定n-1个最小值（n-1次循环）
+    for i in range(n-1):
         min_index=i
-        #内层循环用于交换最大元素与末尾元素
+        #两两比较，将最小值放在初始位置，先用索引记录，最终再交换。
         for j in range(i+1,n):
             if alist[min_index]>alist[j]:
                 min_index=j
-
+        if count==0:
+            return alist
         alist[i],alist[min_index]=alist[min_index],alist[i]
     return alist
 
