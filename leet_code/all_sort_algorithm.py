@@ -146,6 +146,37 @@
 # sorted_li = merge_sort(li)
 # print(sorted_li)
 
+def merge_sort(alist):
+    n=len(alist)
+    if alist is None or n<2:
+        return alist
+
+    #先将数组分成两列分别排序
+    mid=n//2
+    ali_lef=merge_sort(alist[:mid])
+    ali_right=merge_sort(alist[mid:])
+    #再将两列已排序数组进行排序
+    result=[]
+
+    left_pi,right_pi=0,0
+    while left_pi<len(ali_lef) and right_pi<len(ali_right):
+        if ali_lef[left_pi]<ali_right[right_pi]:
+            result.append(ali_lef[left_pi])
+            left_pi+=1
+        else:
+            result.append(ali_right[right_pi])
+            right_pi+=1
+
+    result+=ali_lef[left_pi:]
+    result+=ali_right[right_pi:]
+
+    return result
+
+li = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+print(li)
+sorted_li = merge_sort(li)
+print(sorted_li)
+
 
 
 #二分查找
@@ -169,7 +200,8 @@ def two_find(alist,target):
     return False
 
 li=[17, 20, 26, 31, 44, 54, 55, 77, 93]
-print(two_find(li,31))
+# print(two_find(li,31))
 
+# print(li[2:3])
 
 
