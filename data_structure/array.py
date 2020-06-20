@@ -10,6 +10,7 @@ class array(object):
     def __init__(self,capacity,fillvalue=None):
         self._items=list()#声明self的一个属性items,有这个属性才能做后续的操作
         self.str=""
+
         for count in range(capacity):
             self._items.append(fillvalue)
 
@@ -76,6 +77,7 @@ class array(object):
 
 if __name__ == '__main__':
     a = array(6)
+    print(a)
     print(a.__len__())
     for i in range(len(a)):
         a[i]=i+1
