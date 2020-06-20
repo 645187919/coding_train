@@ -21,8 +21,11 @@ class Loop_queue(object):
     def en_queue(self,value):
         if self.is_full():
             self.resize(self.get_capaticty()*2) #如果队列满，则扩容
+        #尾指针指向空
         self.loop_queue[self.tail]=value
+        #由于是循环指针所以要对len取余
         self.tail=(self.tail+1)%len(self.loop_queue)
+        #数组长度+1
         self.size+=1
         return self.loop_queue
 
@@ -32,12 +35,17 @@ class Loop_queue(object):
     def de_queue(self):
         if self.is_empty():
             return -1
+        #获取要出队列的值
         resutl = self.loop_queue[self.front]
         # self.loop_queue.pop(self.front)
+        #将原位置替换为None
         self.loop_queue[self.front]=None
+        #更改front的值
         self.front=(self.front+1)%self.length()
+        #更改size大小
+
         self.size-=1
-        return resutl
+        return self.loop_queue
 
     def get_capaticty(self):
         return self.length()-1
