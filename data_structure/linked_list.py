@@ -72,6 +72,8 @@ class Linked_list(object):
         return self.add(self.size,value)
 
 
+
+
     def get(self,index):
         if index<0 or index>=self.size:
             raise IndexError("index over")

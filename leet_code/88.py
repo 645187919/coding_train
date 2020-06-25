@@ -22,7 +22,8 @@
 
 
 # 思路：运用双指针，比较两个有序list，找到最小值，然后不断的将较小值插入新的数列
-
+#
+#参考：https://leetcode-cn.com/problems/merge-sorted-array/solution/gelthin-gui-bing-pai-xu-by-gelthin/
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
@@ -30,23 +31,26 @@ class Solution:
         """
         #若强制要求num1被替换，则将num1复制后，再将num1置空，然后操作复制list
         n1,n2=0,0
-        tmp_lis=[]
+        num1_copy=nums1[:m]
+        nums1[:]=[]
+
         # mind=0
 
         while n1<m and n2<n:
-            if nums1[n1]<nums2[n2]:
-                tmp_lis.append(nums1[n1])
+            if num1_copy[n1]<nums2[n2]:
+                nums1.append(num1_copy[n1])
                 n1+=1
             else:
-                tmp_lis.append(nums2[n2])
+                nums1.append(nums2[n2])
                 n2+=1
-        print(tmp_lis)
-        tmp_lis+=nums1[n1:m]
-        tmp_lis+=nums2[n2:n]
-        print(tmp_lis)
+        print(nums1)
+        nums1+=num1_copy[n1:m]
+        nums1+=nums2[n2:n]
+        print(nums1)
         #注意这样写结果有误
-        # nums1=tmp_lis
-        nums1[:]=tmp_lis[:]
+        # num1=A：num1指向A的存储地址；num1[:]=A[:]：代表将A的值赋值给num1
+        # nums1=nums1
+        # nums1[:]=nums1[:]
         return nums1
 
 
