@@ -172,6 +172,20 @@ class Linked_list(object):
         return self.remove(self.size-1)
 
 
+    def remove_element(self,value):
+        prev = Node()
+        prev = self.dummy_head
+        while(prev.next!=None):
+            if prev.next.data==value:
+                break
+            prev=prev.next
+        if prev.next!=None:
+            del_node=Node()
+            del_node=prev.next
+            prev.next = del_node.next
+            del_node.next=None
+            self.size-=1
+
 
 
 # # create three single nodes
@@ -213,5 +227,7 @@ if __name__ == '__main__':
     print(ll.show())
     print(ll.remove_first())
     print(ll.remove_last())
+    # print(ll.remove_element(3))
+    print(ll.show())
 
 
