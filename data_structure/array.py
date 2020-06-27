@@ -4,92 +4,120 @@
 # @Author : magician
 # @File : array.py
 # @Software: PyCharm
-from functools import singledispatch
 
 class array(object):
-    def __init__(self,capacity,fillvalue=None):
-        self._items=list()#声明self的一个属性items,有这个属性才能做后续的操作
+    def __init__(self,capacity=20,fillvalue=None):
+        self.data=list()#声明self的一个属性items,有这个属性才能做后续的操作
         self.str=""
+        self.size=0
 
         for count in range(capacity):
-            self._items.append(fillvalue)
+            self.data.append(fillvalue)
+            self.size+=1
 
-    def __len__(self):
-        return len(self._items)
+    def get_size(self):
+        return self.size
 
     def __str__(self):
-        return str(self._items)
+        return str(self.data)
 
     def __iter__(self):
-        return iter(self._items)
+        return iter(self.data)
 
-    def __getitem__(self, index):
-        if index is None or index>=len(self._items):
+    def get(self, index):
+        if index is None or index>=len(self.data):
             raise Exception("index is None or index over")
-        return self._items[index]
+        return self.data[index]
 
-    def __setitem__(self, index, new_value):
-        self._items[index]=new_value
-        return self._items
+    def set(self, index, new_value):
+        self.data[index]=new_value
+        self.size+=1
+        return self.data
 
     def addlast(self,value):
-        self._items.append(value)
-        return self._items
+        self.data.append(value)
+        self.size+=1
+        return self.data
 
-    def __add__(self, index,value):
-        self._items.insert(index,value)
-        return self._items
+    def _add(self, index,value):
+        self.data.insert(index,value)
+        self.size+=1
+        return self.data
 
     def toString(self):
-        for i in range(len(self._items)):
-            self.str+=str(self._items[i])
-            if i !=(len(self._items)-1):
+        for i in range(len(self.data)):
+            self.str+=str(self.data[i])
+            if i !=(len(self.data)-1):
                 self.str+=","
         return self.str
 
-    def __contains__(self, item):
-        for i in self._items:
+    def contains(self, item):
+        for i in self.data:
             if i==item:
                 return True
         return False
     def find(self,value):
 
-        for i in range(len(self._items)):
-            if self._items[i]==value:
+        for i in range(len(self.data)):
+            if self.data[i]==value:
                 return i
         return -1
 
     def add(self,index,value):
         #先扩充一位
-        self._items.append(1)
+        self.data.append(1)
 
-        if index is None or index>=len(self._items):
+        if index is None or index>=len(self.data):
             raise IndexError("index error")
 
-        for i in range((len(self._items)-2),0,-1):
+        for i in range((len(self.data)-2),0,-1):
             if i>=index:
-                self._items[i+1]=self._items[i]
-        self._items[index]=value
-        return self._items
+                self.data[i+1]=self.data[i]
+        self.data[index]=value
+        self.size+=1
+        return self.data
 
+    def swap(self,index,parent_index):
+        if index>len(self.data) or parent_index>len(self.data):
+            raise IndexError("index error")
+
+        self.data[index],self.data[parent_index]=self.data[parent_index],self.data[index]
+
+    def remove(self,index):
+        if index>=len(self.data):
+            raise IndexError("index over range")
+        tmp_lis=[]
+        tmp_lis[:]=self.data[:index]+self.data[index+1:]
+        ret=self.data[index]
+        self.data[:]=[]
+        self.data[:]=tmp_lis[:]
+        self.size-=1
+        return ret
+
+
+        # return tmp_lis
 
 
 
 if __name__ == '__main__':
     a = array(6)
     print(a)
-    print(a.__len__())
-    for i in range(len(a)):
-        a[i]=i+1
-    print(a)
-    print(a.__getitem__(3))
-    print(a.__setitem__(3,100))
+    print(a.get_size())
+    for i in range(a.get_size()):
+        # print(a.data[i])
+        a.data[i]=i+1
+    # print(a)
+    print(a.get(3))
+    print(a.set(3,100))
     print(a.addlast(200))
-    print(a.__add__(1, 299))
+    print(a.add(1, 299))
     print(a.toString())
-    print(a.__contains__(399))
+    print(a.contains(399))
     print(a.find(3))
     print(a.add(3,3))
+    print(a.get_size())
+    print(a.remove(3))
+    print(a.get_size())
 
 
 
