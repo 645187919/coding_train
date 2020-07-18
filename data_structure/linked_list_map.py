@@ -10,6 +10,12 @@ from data_structure.linked_list import Linked_list
 
 class Node(object):
     def __init__(self,key=-1,val=-1,next=None):
+        """
+        node中多了key,val两个属性
+        :param key:
+        :param val:
+        :param next:
+        """
         self.key=key
         self.val=val
         self.next=next
@@ -27,7 +33,12 @@ class Linked_list_map(Linked_list):
         return self.size==0
 
     def get_node(self,key):
-        
+        """
+        获取key对应的node。
+        :param key:
+        :return:
+        """
+        #cur:当前指针,prev为虚拟节点指针
         cur = self.dummy_head.next
         while cur!=None:
             if cur.key==key:
@@ -42,8 +53,17 @@ class Linked_list_map(Linked_list):
         node = self.get_node(key)
         return None if node==None else node.val
     def add(self,key,val):
+        """
+        添加元素，若key在，则覆盖val值，若不在，则新增node。
+        :param key:
+        :param val:
+        :return:
+        """
+
+        #看key是否存在
         node = self.get_node(key)
         if node == None:
+            #在头结点前面新增一个头结点用于存放新增的key
             self.dummy_head.next = Node(key, val, self.dummy_head.next)
             self.size+=1
         else:
@@ -57,17 +77,21 @@ class Linked_list_map(Linked_list):
 
     def remove(self,key):
         prev = self.dummy_head
+        #找到需要移除的点
         while prev.next!=None:
             if prev.next.key == key:
                 break
-
             prev=prev.next
-        if prev.next!=None:
-            del_node=prev.next
-            prev.next=del_node.next
-            del_node.next=None
+
+        #若不是尾结点
+        if prev.next.next!=None:
+            prev.next=prev.next.next
+            # del_node=prev.next
+            # prev.next=del_node.next
+            # del_node.next=None
             self.size-=1
-            return del_node.val
+        else:
+            prev.next=None
 
         return None
 
@@ -95,8 +119,6 @@ if __name__ == '__main__':
 
     print(map.get_node(5).val)
 
-    s = set()
-    s.c
 
 
 

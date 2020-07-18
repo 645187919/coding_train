@@ -16,10 +16,11 @@ class Node(object):
 
 
 
-
+#递归思想的代表！！
 class BET(object):
     def __init__(self):
-        #二叉树只需要声明对应的基本结构：即Node和size。对应的data和左右孩子则在Node中进一步声明。
+        #二叉树只需要声明对应的基本结构：即根节点和size。对应的data和左右孩子则在Node中进一步声明。
+        #这类动态数据结构往往只需要知道一个首节点，全部的节点就都知道了！
         self.root=None
         self.size=0
 
@@ -29,17 +30,24 @@ class BET(object):
         return self.size==0
 
     def add(self,val):
+        """
+        二分搜索树中添加元素：对于用户来说只关心对应的val插入，但是实际插入时，是需要插入指定的node的位置，
+        所以在内部实现的时候除了要传入val还需要传入一个node参数，这就需要一个私有方法来实现！
+        逻辑：若根节点为None，则创建根节点插入val；否则利用递归来解决问题。
+        :param val:
+        :return:
+        """
         # 方法一：和下面方法一配对
-        # #如果当前二叉树为空，则将创建根节点。
-        if self.root==None:
-            self.root=Node(val)
-            self.size+=1
-        #否则将新插入的val放入根节点的子节点中
-        else:
-            self._add(self.root,val)
+        # # #如果当前二叉树为空，则将创建根节点。
+        # if self.root==None:
+        #     self.root=Node(val)
+        #     self.size+=1
+        # #否则将新插入的val放入根节点的子节点中
+        # else:
+        #     self._add(self.root,val)
 
-        # 方法二:
-        # self.root = self._add(self.root, val)
+        # 方法二:创建根节点的操作在私有方法中实现。直接包括根节点有无的两种情况！
+        self.root = self._add(self.root, val)
 
     # 后续的添加操作实质也就是传入node和val，然后查看
     def _add(self,node,val):
@@ -77,7 +85,7 @@ class BET(object):
               node.left = self._add(node.left, val)
           elif node.data<val:
               node.right=self._add(node.right,val)
-
+          #如果递归过程中没有满足上面的过程，就将原节点返回，不做任何操作。即node.left=node.left。
           return node
 
 
@@ -87,7 +95,7 @@ class BET(object):
 
     def _contains(self,node,val):
         """
-        节点是否包含某个val
+        节点是否包含某个val：同add的逻辑大体相同
         :param node:需要传入初始的根节点
         :param val:
         :return:
@@ -104,12 +112,16 @@ class BET(object):
         else:
             return self._contains(node.right,val)
 
+    def pre_order(self):
+        self._pre_order(self.root)
+
     def _pre_order(self,node):
         """
-        先续遍历：遍历实质也就是先看根节点的val,然后递归看他的左右孩子节点
+        先续遍历：遍历实质也就是先看根节点的val,然后递归看他的左右孩子节点。递归的思想！
         :param node:
         :return:
         """
+        #若根节点为None,则直接结束。
         if node==None:
             return
         print(node.data)
@@ -117,8 +129,6 @@ class BET(object):
         self._pre_order(node.right)
 
 
-    def pre_order(self):
-        self._pre_order(self.root)
 
 
 
@@ -146,35 +156,41 @@ class BET(object):
     def level_order(self):
         """
         层序遍历
+        整体的逻辑：若队列不为空，则先取出队首的值，然后判断其左右孩子节点是否为空，不为空，则加入队列。
+        （即每取出一个节点，就去判断该节点的是否有孩子节点，然后存入队列）
         :return:
         """
         #以一个队列来存储数据，先进先出
         q=list()
         q.append(self.root)
         while len(q)!=0:
-            #整体的逻辑：若队列不为空，则先取出队首的值，然后判断其左右孩子节点是否为空，不为空，则加入队列。
-            # （即每取出一个节点，就去判断该节点的是否有孩子节点，然后存入队列）
             cur = q.pop(0)
             print(cur.data)
             if cur.left!=None:
                 q.append(cur.left)
             if cur.right!=None:
                 q.append(cur.right)
+
+    def find_min(self):
+        return self._find_min(self.root)
+
     def _find_min(self,node):
         if node.left==None:
             return node.data
         return self._find_min(node.left)
-    #用户只需要知道最小值即可，但是实际查找时需要参数node来作为起始节点来查找，所以需要私有方法
-    def find_min(self):
-        return self._find_min(self.root)
+
+    def find_max(self):
+        return self._find_max(self.root)
 
     def _find_max(self,node):
         if node.right==None:
             return node.data
         return self._find_max(node.right)
 
-    def find_max(self):
-        return self._find_max(self.root)
+    def remove_min(self):
+        min = self.find_min()
+        self.root = self._remove_min(self.root)
+        return min
 
     def _remove_min(self,node):
         """
@@ -183,9 +199,8 @@ class BET(object):
         :param node:
         :return:
         """
-        #终止条件：若node的left为None,则将该node删除；怎么删除，实质也就让node的right替代node
+        #终止条件：若node的left为None,则将该node删除；怎么删除，实质也就让node的right替代node。
         if node.left is None:
-            right_node = Node(-1)
             right_node=node.right
             node.right=None
             self.size-=1
@@ -194,22 +209,11 @@ class BET(object):
         node.left = self._remove_min(node.left)
         return node
 
-    def remove_min(self):
-        min = self.find_min()
-        self.root = self._remove_min(self.root)
-        return min
+
 
 
 if __name__ == '__main__':
     bet = BET()
-    # node=Node(2)
-    # print(bet.size)
-    # print(bet.add(node, 1))
-    # print(bet.size)
-    # print(node.left.data)
-    # print(bet.add(node.left,-1))
-    # print(bet.size)
-    # print(node.left.left.data)
     nums=[5,3,6,8,4,2]
     for i in nums:
         bet.add(i)
@@ -230,3 +234,6 @@ if __name__ == '__main__':
 
     print(bet.remove_min())
     print(bet.size)
+    print("%"*10)
+    print(bet.pre_order())
+
