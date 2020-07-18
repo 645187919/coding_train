@@ -13,6 +13,7 @@ class Node(object):
 
 class Linked_list(object):
     def __init__(self):
+        #初始化虚拟头节点dummmy_head
         self.dummy_head=Node()
         self.size=0
         # self.prev=Node
@@ -27,61 +28,39 @@ class Linked_list(object):
 
     def add(self,index,value):
         """
-        使用虚拟头结点，就不用考虑头结点这种特殊情况
+        添加元素：使用虚拟头结点dummy_head，就不用考虑头结点这种特殊情况
         :param index:
         :param value:
         :return:
         """
         if index<0 or index>self.size:
             raise IndexError("index over")
-        # # if (index==0):
-        # #     self.add_first(value)
-        # else:
-        #     # node = Node
-        #     prev = Node()
-        #     prev=self.head
-        #     for i in range(index-1):
-        #         prev=prev.next
-        #     prev.next = Node(value, prev.next)
-        #     self.size+=1
-        # # return
-        # if (index==0):
-        #     self.add_first(value)
 
-        prev = Node()
+        #声明pre指针
         prev=self.dummy_head
         #index实质也就是添加了一个虚拟头结点所以不需要减1
+        #pre移动：pre=pre.next.下面的操作实质也就是移动到index的前一个节点处
         for i in range(index):
             prev=prev.next
+        #插入节点操作：Node(value,prev.next)创建一个指向pre.next的节点，prev.next=Node（）指的是prev.next指向Node。
         prev.next = Node(value, prev.next)
         self.size+=1
 
         return prev.next.data
-    # return
 
     def add_first(self,value):
-        # node = Node(value)
-        # node.next = self.head
-        # self.head=node
-
-        # self.head = Node(value, self.head)
-        # self.size+=1
-
         return self.add(0,value)
+
     def add_last(self,value):
         return self.add(self.size,value)
-
 
 
 
     def get(self,index):
         if index<0 or index>=self.size:
             raise IndexError("index over")
-
-        cur = Node()
         #cur代表包含第一个元素的节点
         cur = self.dummy_head.next
-        # print(cur.data)
 
         for i in range(index):
             cur = cur.next
@@ -97,7 +76,6 @@ class Linked_list(object):
     def set(self,index,value):
         if index<0 or index>=self.size:
             raise IndexError("index over")
-        cur = Node()
         cur = self.dummy_head.next
 
         for i in range(index):
@@ -108,7 +86,6 @@ class Linked_list(object):
 
     def contains(self,value):
 
-        cur=Node()
         cur = self.dummy_head.next
         for i in range(self.size):
             if cur.data==value:
@@ -116,20 +93,12 @@ class Linked_list(object):
             cur=cur.next
         return False
 
-        # while cur!=None:
-        #     if cur.data==value:
-        #         return True
-        #     cur=cur.next
-        # return False
-
 
     def show(self):
 
         cur=self.dummy_head.next
         tmp_lis=[]
         while cur != None:
-            # for j in range(i):
-            # for j in range(i):
             tmp_lis.append(cur.data)
             cur=cur.next
 
@@ -146,23 +115,22 @@ class Linked_list(object):
         return string
 
     def remove(self,index):
+        """
+        删除节点
+        :param index:
+        :return:
+        """
         if index<0 or index>=self.size:
             raise IndexError("index over")
 
-        prev = Node()
-        #考虑删除首节点
         prev=self.dummy_head
-
+        #移动索引
         for i in range(index):
             prev=prev.next
 
-        ret_node=Node()
-        ret_node=prev.next
-        prev.next=ret_node.next
-        ret_node.next=None
+        #删除节点的指针操作（指针跳过要删除的节点即可）
+        prev.next=prev.next.next
         self.size-=1
-
-        return ret_node.data
 
 
     def remove_first(self):
@@ -173,34 +141,26 @@ class Linked_list(object):
 
 
     def remove_element(self,value):
-        prev = Node()
-        prev = self.dummy_head
+        prev = self.dummy_head.next
+        print(type(prev))
+
+        #终止条件：查找到链表的结尾。
         while(prev.next!=None):
             if prev.next.data==value:
-                break
+
+                #判断pre.next是否为最后一个元素，若是需要特殊处理。
+                if prev.next.next!=None:
+                    print(prev.next.data)
+                    prev.next=prev.next.next
+                #尾部，将尾结点指向None，然后break。
+                else:
+                    prev.next=None
+                    break
+                self.size-=1
             prev=prev.next
-        if prev.next!=None:
-            del_node=Node()
-            del_node=prev.next
-            prev.next = del_node.next
-            del_node.next=None
-            self.size-=1
 
 
 
-# # create three single nodes
-# node1 = Node(15)
-# node2 = Node(8.2)
-# node3 = Node("Berlin")
-# node4 = Node(15)
-#
-# track = Linked_list()
-# print("track length: %i" % track.get_size())
-#
-# for current_node in [node1, node2, node3, node4]:
-#     track.add(0,current_node)
-#     print("track length: %i" % track.get_size())
-#     # track.output_list()
 if __name__ == '__main__':
 
     ll = Linked_list()
@@ -228,6 +188,9 @@ if __name__ == '__main__':
     print(ll.remove_first())
     print(ll.remove_last())
     # print(ll.remove_element(3))
+    print(ll.show())
+    # ll.add_last(2)
+    print(ll.remove_element(3))
     print(ll.show())
 
 
