@@ -11,7 +11,6 @@ class Linked_list_stack(Linked_list):
     def __init__(self):
         self.list=Linked_list()
 
-    # def get_size(self):
     def push(self,value):
         self.list.add_first(value)
 

@@ -8,6 +8,9 @@
 
 class Queue(object):
     def __init__(self):
+        """
+        队列
+        """
         self.queue=[]
 
     def en_queue(self,value):

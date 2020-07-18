@@ -7,7 +7,11 @@
 
 
 class Stack(object):
+
     def __init__(self):
+        """
+        栈：FILO的结构
+        """
         self._stack=[]
 
 
@@ -16,6 +20,10 @@ class Stack(object):
         return self._stack
 
     def pop(self):
+        """
+        由于是FILO的结构，所以出栈对应list的最后一个元素。
+        :return:
+        """
         self._stack.pop(-1)
         return self._stack
 
@@ -47,11 +55,9 @@ class Stack(object):
 
 
 s = Stack()
-# print(s)
-# print(type(s))
+
 for i in range(6):
     print(s.push(i))
-
 print(s.push(1))
 print(s.push(2))
 print(s.to_string())
@@ -62,7 +68,5 @@ print(s.peek())
 print(s.pop())
 print(s.is_empty())
 print(s.get_size())
-# for i in range(6):
-#     s.ap
 
 

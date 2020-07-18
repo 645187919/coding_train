@@ -1,128 +1,158 @@
 #!/usr/bin/env python 
 # -*- coding: utf-8 -*- 
-# @Time : 2020/7/2 21:26
-# @Author : magician
-# @File : stack_test.py
+# @Time : 2020/6/27 15:05 
+# @Author : magician 
+# @File : max_heap.py 
 # @Software: PyCharm
 
 
-#该heap为min_heap，即根节点为最小值
-class PriorityQueueBase:
-    #抽象基类为堆
+class array(object):
 
-    class Item:
-        #轻量级组合来存储堆项目
-        __slots__ = '_key' , '_value'
+    def __init__(self,capacity=32):
+        self.size=0
+        self.data=[None]*capacity
 
-        def __init__ (self, k, v):
-            self._key = k
-            self._value = v
+    def get(self,index):
+        if index>self.size:
+            raise IndexError("index is illegal")
 
-        def __lt__ (self, other):     #比较大小
-            return self._key < other._key
-
-        def is_empty(self):
-            return len(self) == 0
-
-        def __str__(self):
-            return str(self._key)
+        return self.data[index]
 
 
-class HeapPriorityQueue(PriorityQueueBase):
+    def get_capacity(self):
+        return len(self.data)
 
-    def __init__ (self):
-        self._data = [ ]
-
-    def __len__ (self):
-        return len(self._data)
+    def get_size(self):
+        return self.size
 
     def is_empty(self):
-        return len(self) == 0
+        return self.size==0
 
-    def add(self, key, value):   #在后面加上然后加上
-        self._data.append(self.Item(key, value))
-        self._upheap(len(self._data) - 1)
+    def addlast(self,value):
+        self.add(self.size,value)
 
-    def min(self):
-        if self.is_empty():
-            raise ValueError( "Priority queue is empty." )
-        item = self._data[0]
-        return (item._key, item._value)
+    def add(self,index,value):
+        if index>self.size:
+            raise IndexError("index is illegal")
 
-    def remove_min(self):
-        if self.is_empty():
-            raise ValueError( "Priority queue is empty." )
-        self._swap(0, len(self._data) - 1)
-        item = self._data.pop( )
-        self._downheap(0)
-        return (item._key, item._value)
+        i=self.size-1
+        while i>=index:
+            self.data[i+1]=self.data[i]
+            i-=1
+        self.data[index]=value
+        self.size+=1
 
-    def _parent(self, j):
-        return (j - 1) // 2
+    def swap(self,index,parent_index):
+        if index>len(self.data) or parent_index>len(self.data):
+            raise IndexError("index error")
 
-    def _left(self, j):
-        return 2 * j + 1
+        self.data[index],self.data[parent_index]=self.data[parent_index],self.data[index]
+    def remove(self,index):
+        if index>=len(self.data):
+            raise IndexError("index over range")
+        tmp_lis=[]
+        tmp_lis[:]=self.data[:index]+self.data[index+1:]
+        ret=self.data[index]
+        self.data[:]=[]
+        self.data[:]=tmp_lis[:]
+        self.size-=1
+        return ret
+    def remove_last(self):
+        return self.remove(self.size-1)
 
-    def _right(self, j):
-        return 2 * j + 2
 
-    def _has_left(self, j):
-        return self._left(j) < len(self._data)
 
-    def _has_right(self, j):
-        return self._right(j) < len(self._data)
 
-    def _swap(self, i, j):
-        self._data[i], self._data[j] = self._data[j], self._data[i]
+class Max_heap(array):
 
-    def _upheap(self, j):#往上交换
-        parent = self._parent(j)
-        if j > 0 and self._data[j] < self._data[parent]:
-            self._swap(j, parent)
-            self._upheap(parent)
+    def __init__(self):
+        """
+        二叉堆是一颗完全二叉树。实质也就是一个数组，索引值有特殊含义，val为每棵二叉堆的节点。
+        """
+        self.data=array()
+        self.size=0
 
-    def _downheap(self, j):#往下交换，递归比较三个值
-        if self._has_left(j):
-            left = self._left(j)
-            small_child = left
-            if self._has_right(j):
-                right = self._right(j)
-                if self._data[right] < self._data[left]:
-                    small_child = right
-            if self._data[small_child] < self._data[j]:
-                self._swap(j, small_child)
-                self._downheap(small_child)
+    def get_size(self):
+        return self.size
 
-heap = HeapPriorityQueue()
-heap.add(4, "D")
-heap.add(3, "C")
-heap.add(1, "A")
-heap.add(5, "E")
-heap.add(2, "B")
-heap.add(7, "G")
-heap.add(6, "F")
-heap.add(26, "Z")
+    def is_empty(self):
+        return self.size==0
 
-for item in heap._data:
-    print(item)
+    def parent_index(self,index):
+        if index==0:
+            raise IndexError("root hasn't parents")
 
-print("min is: ")
-print(heap.min())
-print()
+        return (index-1)//2
 
-print("remove min: ")
-print(heap.remove_min())
-print("Now min is: ")
-print(heap.min())
-print()
+    def left_child_index(self,index):
+        return (2*index)+1
 
-print("remove min: ")
-print(heap.remove_min())
-print("Now min is: ")
-print(heap.min())
-print()
+    def right_child_index(self,index):
+        return (2*index)+2
 
-heap.add(1, "A")
-print("Now min is: ")
-print(heap.min())
-print()
+    def add(self,value):
+        self.data.addlast(value)
+        self.sift_up(self.data.get_size()-1)
+        self.size+=1
+
+    def sift_up(self,index):
+        #若二叉堆有多个节点，且index的父亲节点小于子节点的话，就进行上移操作。
+        while index>0 and (self.data.get(self.parent_index(index))-self.data.get(index))<0:
+            #交换两个节点的val
+            self.data.swap(index,self.parent_index(index))
+            #更改索引
+            index=self.parent_index(index)
+
+    def find_max(self):
+        if self.data.get_size()==0:
+            raise IndexError("can not findMax when heap is empty")
+        return self.data.get(0)
+
+    def sift_down(self,index):
+        #index的左孩子索引小于整个数组的索引
+        while self.left_child_index(index)<self.get_size():
+            ind=self.left_child_index(index)
+            #有右孩子且右孩子大于左孩子(比较左右孩子的大小，然后和根节点进行互换)
+            if ind+1<self.data.get_size() and (self.data.get(ind+1)-self.data.get(ind)>0):
+                #获取右孩子的索引
+                ind=self.right_child_index(index)
+
+            #根节点大于左右孩子中较大的孩子，则break
+            if self.data.get(index)-self.data.get(ind)>=0:
+                break
+
+            #其他情况的话，则替换根节点和孩子节点的值，并将孩子节点设为根节点接着循环
+            self.data.swap(index,ind)
+
+            index=ind
+
+
+    def extract_max(self):
+        ret = self.find_max()
+
+        #替换最大值和数组的最小值
+        self.data.swap(0,self.get_size()-1)
+        #移除最小值的索引
+        self.data.remove(self.size-1)
+        #下沉
+        self.sift_down(0)
+        return ret
+
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    m_heap = Max_heap()
+
+    print(m_heap.get_size())
+    for i in range(1,9):
+        m_heap.add(i)
+    print(m_heap.get_size())
+    print(m_heap.find_max())
+
+    # print(m_heap.extract_max())
+
