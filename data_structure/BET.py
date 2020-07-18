@@ -23,7 +23,7 @@ class BET(object):
         self.root=None
         self.size=0
 
-    def  get_size(self):
+    def get_size(self):
         return self.size
     def is_empty(self):
         return self.size==0
@@ -31,15 +31,15 @@ class BET(object):
     def add(self,val):
         # 方法一：和下面方法一配对
         # #如果当前二叉树为空，则将创建根节点。
-        # if self.root==None:
-        #     self.root=Node(val)
-        #     self.size+=1
-        # #否则将新插入的val放入根节点的子节点中
-        # else:
-        #     self.add(self.root,val)
+        if self.root==None:
+            self.root=Node(val)
+            self.size+=1
+        #否则将新插入的val放入根节点的子节点中
+        else:
+            self._add(self.root,val)
 
         # 方法二:
-        self.root = self._add(self.root, val)
+        # self.root = self._add(self.root, val)
 
     # 后续的添加操作实质也就是传入node和val，然后查看
     def _add(self,node,val):
@@ -57,6 +57,7 @@ class BET(object):
           #     self.root.right=Node(val)
           #     self.size+=1
           #     return
+
           # #递归调用（此时“根”节点已变为root.left/right节点）
           # if self.root.data>val:
           #     self.add(self.root.left,val)
@@ -65,9 +66,10 @@ class BET(object):
 
 
           # 方法二：返回插入新节点后的二叉树的根。
-          #若根节点为None
+          #若node根节点为None
           if node is None:
               self.size+=1
+              #返回给函数调用的上层，从而与二分搜索树的节点产生关联
               return Node(val)
 
           if node.data>val:
@@ -79,6 +81,7 @@ class BET(object):
           return node
 
 
+    #为什么用私有方法：用户只关心是否包含val，但是从bet查找包含val的操作需要从root开始。
     def contains(self,val):
         return self._contains(self.root,val)
 
@@ -161,7 +164,7 @@ class BET(object):
         if node.left==None:
             return node.data
         return self._find_min(node.left)
-
+    #用户只需要知道最小值即可，但是实际查找时需要参数node来作为起始节点来查找，所以需要私有方法
     def find_min(self):
         return self._find_min(self.root)
 

@@ -4,7 +4,7 @@
 # @Author : magician 
 # @File : link_list.py 
 # @Software: PyCharm
-
+#重点关注下，加强下练习！！
 class node(object):
     def __init__(self,val=None,next=None):
         self.data=val
