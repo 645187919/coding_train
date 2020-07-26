@@ -11,7 +11,7 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        #方法一：快慢指针，将非零元素和满指针元素互换位置。
+        #方法一：快慢指针，将快指针的非零元素和慢指针元素互换位置。
         # #快慢指针解决问题，快指针遍历数组，不等于0就和慢指针交换位置。然后慢指针+1（慢指针确定一个非零元素的位置）
         # j=0
         # for i in range(len(nums)):
