@@ -21,8 +21,10 @@
 # 输出: [1,2,2,3,5,6]
 
 
-# 思路：运用双指针，比较两个有序list，找到最小值，然后不断的将较小值插入新的数列
-#
+# 思路：合并两个有序数组：
+# 运用双指针，比较两个有序list，找到最小值，然后不断的将较小值插入新的数列。直到某个list的值被插完。
+#接下来，将另一个list的剩余值插入新的数列即可
+
 #参考：https://leetcode-cn.com/problems/merge-sorted-array/solution/gelthin-gui-bing-pai-xu-by-gelthin/
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
