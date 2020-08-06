@@ -25,25 +25,27 @@
 def max_heapify(heap, heapSize, root):
     """
     对传入的数据进行最大堆化
-    :param heap:
-    :param heap_size:
-    :param i:
+    :param heap:传入的堆数组
+    :param heap_size:要处理的堆的大小
+    :param root:对应的根节点
     :return:
     """
     left = 2*root + 1
     right = left + 1
+    #记录子树中的最大值
     larger = root
 
     #先更换索引
+    #left是索引，heap_size是数组大小。索引小于数组大小;更换索引
     if left < heapSize and heap[larger] < heap[left]:
         larger = left
     if right < heapSize and heap[larger] < heap[right]:
         larger = right
-
+    #最后更换val
     if larger!=root:
         #最后更换位置
         heap[larger],heap[root]=heap[root],heap[larger]
-        #递归的对子树接着进行最大堆化（自底向上构建，每上一层（相对的顺序会被打乱重新排序），都要对下面的“子树”进行重新的堆化处理。
+        #对当前层次的下一级子树进行最大堆化（当前层次的子树的相对顺序已经更改，相关的子树也要做出相应的最大堆化更改）
         max_heapify(heap,heapSize,larger)
 
 
