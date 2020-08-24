@@ -26,6 +26,7 @@ class ListNode:
 
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
+        #反转指针的操作
         #思路：双指针。dummy_heat,cur指针
         pre=None
         cur=head
