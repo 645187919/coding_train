@@ -33,7 +33,7 @@ class Solution:
         while head:
             if head.val<x:
                 p1.next=head
-                #移动p1
+                #移动p1，扩充链表大小
                 p1=p1.next
             else:
                 p2.next=head
