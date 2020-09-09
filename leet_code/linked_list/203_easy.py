@@ -27,7 +27,7 @@ class Solution:
         dumy_head=ListNode(-1)
         dumy_head.next=head
         #创建对应的指针
-        prev=ListNode(-1)
+        #prev=ListNode(-1)
         prev=dumy_head
         while (prev.next!=None):
             if prev.next.val==val:

@@ -16,6 +16,8 @@
 #
 # 输入: 1->1->1->2->3
 # 输出: 2->3
+#思路：双指针，pre,cur。
+
 
 # Definition for singly-linked list.
 class ListNode:
