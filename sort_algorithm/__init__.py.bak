@@ -1,0 +1,50 @@
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*- 
+# @Time : 2020/7/20 21:45 
+# @Author : magician 
+# @File : __init__.py.py 
+# @Software: PyCharm
+
+import random
+a=[2,2,3,1,2,6,1,6,3,2,6,5,4,3,2,1,4,5,3,5,3,2,1,2,3,2,1]
+
+def quck(arr,l,r):
+    # s = int(random.uniform(l, r) + 0.5)
+    # arr[s],arr[l]=arr[l],arr[s]
+    base = arr[l]
+    lt=l+1
+    gt = r+1
+    i=l+1 #base为0元素，则索引从1开始。
+    print(lt,i,gt)
+    while i < gt:#<gt代表到最后一个元素（gt=length）
+        if arr[i]< base:#若e小于base，则放入<base的区域。这里base元素没有动。
+            arr[i],arr[lt]=arr[lt],arr[i]
+            lt += 1#lt,i各前进一步
+            i+=1
+        elif arr[i]> base:#若e大于base，则放入>base的区域。将gt减1代表dt区域增加了1
+            gt -= 1
+            arr[i], arr[gt] = arr[gt], arr[i]#由于换过来的元素没有遍历所以不需要i+1
+        else:
+            i+=1 #e等于base,i+1增加=base的区域
+
+    arr[l], arr[lt-1] = arr[lt-1], arr[l]#最终将base元素和<base区域中的最后一个元素互换位置。
+    # print(arr)
+    return lt-1,gt #返回=base区域的左右边界。
+
+def QuickSort3(arr,l,r):
+    if l >=r:
+        return
+    mid,mid2 = quck(arr,l,r)
+    # print(mid,arr[l:mid],arr[mid2:r+1])
+    QuickSort3(arr,l,mid)
+    QuickSort3(arr,mid2,r)
+    # print(arr)
+    return arr
+
+import time
+strat = time.time()
+
+print(QuickSort3(a,0,len(a)-1))
+print(time.time() - strat)
+# print(len(a)-1)
+# print(quck(a,0,len(a)-1))
