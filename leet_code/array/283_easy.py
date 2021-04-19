@@ -31,11 +31,14 @@ class Solution:
         """
         #方法一：快慢指针，将快指针的非零元素和慢指针元素互换位置。
         # #快慢指针解决问题，快指针遍历数组，不等于0就和慢指针交换位置。然后慢指针+1（慢指针确定一个非零元素的位置）
-        # j=0
-        # for i in range(len(nums)):
-        #     if nums[i]!=0:
-        #         nums[i],nums[j]=nums[j],nums[i]
-        #         j+=1
+        s=0
+        n_lenth=len(nums)
+        #快指针遍历数组
+        for f in range(n_lenth):
+            #慢指针保证非零元素的数组，所以快指针只要不为零就和满指针交换位置。然后慢指针加一
+            if nums[f]!=0:
+                nums[f],nums[s]=nums[s],nums[f]
+                s+=1
 
         #方法二：快慢指针，将非零元素前移，然后填充零元素
         n=len(nums)

@@ -41,8 +41,8 @@ def binary_search_2(alist,target):
 li=[17, 20, 26, 31, 44, 54, 55, 77, 93]
 
 print(binary_search(li, 20))
-print(binary_search(li, 2))
+print(binary_search(li, 21))
 
 
-print(binary_search_2(li, 20))
-print(binary_search_2(li, 2))
+# print(binary_search_2(li, 20))
+# print(binary_search_2(li, 21))
