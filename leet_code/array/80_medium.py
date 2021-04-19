@@ -48,6 +48,21 @@ class Solution:
         return s+1
 
 
-
-
-
+        # s=0
+        # n_len=len(nums)
+        # #元素重复的标识
+        # count=1
+        # for f in range(1,n_len):
+        #     #若元素不重复，则扩充目标数组（满指针数组，只需要将目标值添加到目标指针索引+1的位置）
+        #     if nums[s]!=nums[f]:
+        #         count=1
+        #         s+=1
+        #         nums[s]=nums[f]
+        #     #若元素重复，则先判断重复标识，若元素出现一次，则将元素加入目标数组，并更改重复标识
+        #     else:
+        #         if count==1:
+        #             count+=1
+        #             s+=1
+        #             nums[s]=nums[f]
+        #
+        # return s+1
