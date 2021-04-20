@@ -37,16 +37,19 @@ class Solution:
         # return lis
 
         #三指针
+        #cur指针遍历元素
         cur=0
+        #小于1的数组的指标
         start=0
         n=len(nums)
+        #大于1的数组的指针
         end=n-1
 
         while cur<=end:
             if nums[cur]==0:
                 #将star数组（0数组）扩大一位
                 nums[cur],nums[start]=nums[start],nums[cur]
-
+                #cur+1是由于当前cur指针对应的值已为确认的值；
                 cur+=1
                 start+=1
             elif nums[cur]==2:
@@ -54,6 +57,7 @@ class Solution:
                 nums[cur],nums[end]=nums[end],nums[cur]
                 end-=1
             else:
+
                 cur+=1
 
 
