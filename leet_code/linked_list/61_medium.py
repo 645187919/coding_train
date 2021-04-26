@@ -11,7 +11,12 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
+"""
+思路：
+1: 迭代 - 将倒数第k个元素作为新的头，再将原来的头链接到原来的尾上
+循环找到链表长度n和链表尾，然后算一下k/n的余数，把链表连成环，
+然后从尾部开始往前走n-k步，在这里断开这个环，然后返回头指针
+"""
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         #声明特殊情况
