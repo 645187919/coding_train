@@ -5,7 +5,6 @@
 # @File : max_heap.py 
 # @Software: PyCharm
 
-
 class array(object):
 
     def __init__(self,capacity=32):
