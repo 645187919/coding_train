@@ -44,20 +44,22 @@ class Solution:
         n=len(nums)
         #大于1的数组的指针
         end=n-1
-
+        #终止条件
         while cur<=end:
+            #等于0将左指针扩大一位，且cur指针也跟着扩大
             if nums[cur]==0:
                 #将star数组（0数组）扩大一位
                 nums[cur],nums[start]=nums[start],nums[cur]
                 #cur+1是由于当前cur指针对应的值已为确认的值；
                 cur+=1
                 start+=1
+            #等于2将右指针扩大一位，索引实质减小
             elif nums[cur]==2:
                 #将end数组（2数组）扩大一位
                 nums[cur],nums[end]=nums[end],nums[cur]
                 end-=1
+            #否则代表等于1，当前指针指向下一位
             else:
-
                 cur+=1
 
 
