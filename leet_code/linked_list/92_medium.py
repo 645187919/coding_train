@@ -37,12 +37,15 @@ class Solution:
         for _ in range(n):
             d = d.next
         #通过双指针反转链表
+        #声明指针b和c
         b, c = a.next, d.next
+        #声明指针pre
         pre = b
         cur = pre.next
         while cur != c:
             next = cur.next
             cur.next = pre
+            #移动pre和cur
             pre = cur
             cur = next
         #将反转后的链表和原始链表链接

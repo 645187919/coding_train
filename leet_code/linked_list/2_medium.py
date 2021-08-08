@@ -29,6 +29,7 @@ class Solution:
             y = l2.val if l2 else 0
             sum = x + y + carry              # 对每一位求和
             carry = sum // 10                # 地板除，求进一（其为0或1）
+            #先有next对应的节点，才能有后续的移动
             node.next = ListNode(sum % 10)   # 取余数，求本位结点
             if l1:                           # 求空否，防止出现无后继结点
                 l1 = l1.next

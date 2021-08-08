@@ -16,7 +16,7 @@
 # 输出: 1->2->2->4->3->5
 
 
-#思路：用两个链表分别存储两边的数据，然后将两个链表链接
+#思路：创建两个链表分别存储两边的数据，然后将两个链表链接
 
 # Definition for singly-linked list.
 class ListNode:
@@ -26,19 +26,23 @@ class ListNode:
 
 class Solution:
     def partition(self, head: ListNode, x: int) -> ListNode:
+        #创建两个空链表
         dumy_head_1=ListNode(-1)
         dumy_head_2=ListNode(-1)
+        #p1和p2为创建的两个空链表的虚拟头节点
         p1=dumy_head_1
         p2=dumy_head_2
+        #遍历输入链表
         while head:
             if head.val<x:
+                #虚拟指针指向目标节点
                 p1.next=head
                 #移动p1，扩充链表大小
                 p1=p1.next
             else:
                 p2.next=head
                 p2=p2.next
-            #移动head
+            #移动输入链表的指针
             head=head.next
 
         # 连接两个链表
