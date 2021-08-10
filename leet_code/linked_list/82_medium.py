@@ -33,8 +33,8 @@ class Solution:
 
         while cur and cur.next:
 
-            if pre.next.val==cur.next.val:
-                #当相邻元素重复时，不断移动cur指针
+            if cur.val==cur.next.val:
+                #当相邻元素重复且有cur.next时，不断移动cur指针
                 while cur.next and cur.val==cur.next.val:
                     cur=cur.next
                 #此时cur依旧在相同元素的坐标下。需要指向cur.next

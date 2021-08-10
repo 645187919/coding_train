@@ -33,13 +33,14 @@ class Solution:
         min_length=len(nums)
         #右指针开始滑动
         for right in range(len(nums)):
-            #对左右指针包换数组元素进行累加
+            #对左右指针包括的数组元素进行累加
             tmp_sum+=nums[right]
             #判断子数组是否满足条件
             while tmp_sum>=s:
                 #比较子串与原有最小长度的大小。
                 min_length=min(min_length,right-left+1)
-                #对子串进行裁剪。看是否依旧满足>=s的条件（已知条件满足要求后，需要针对未知情况进行排除！）
+                #对子串进行裁剪。看是否依旧满足>=s的条件（已知右指针对应的value值满足要求后，
+                # 需要针对左指针对应的value值即未知情况进行排除！）
                 tmp_sum-=nums[left]
                 left+=1
 
