@@ -37,7 +37,7 @@ class Solution:
         for _ in range(n):
             d = d.next
         #通过双指针反转链表
-        #声明指针b和c
+        #声明指针b和c（保留下反转链表的首节点b以及尾节点的下一个节点c）
         b, c = a.next, d.next
         #声明指针pre
         pre = b

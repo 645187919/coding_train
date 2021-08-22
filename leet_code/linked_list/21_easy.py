@@ -51,7 +51,8 @@ class Solution:
                 cur.next=cur1
                 #cur1移位
                 cur1=cur1.next
-            #扩充合并链表
+            #扩充合并链表（cur只是虚拟节点的指针，虚拟节点要想扩充需要连接足够多的节点，就需要移动cur指针）
+            #指针的另一个作用：控制链表的大小
             cur=cur.next
 
         if cur1:
