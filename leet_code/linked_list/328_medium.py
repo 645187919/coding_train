@@ -47,22 +47,20 @@ class Solution:
             num=count%2
             print(count)
             if num==1:
-                #p1指向cur
+                #串联节点
                 p1.next=cur
-                #添加了一个元素，自然要移动p1，扩充链表。
+                #添加了一个元素，自然要移动p1，扩充链表（控制链表）。
                 p1=p1.next
-                #移动cur
-                cur=cur.next
-
-
             else:
                 p2.next=cur
                 p2=p2.next
-                cur=cur.next
-
+            #移动cur
+            cur=cur.next
+            #增加索引值
             count+=1
-
+        #连接两个链表
         p1.next=dumy_head_2.next
+        #另一个链表末尾置空
         p2.next=None
         return dumy_head.next
 
