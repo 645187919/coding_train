@@ -55,16 +55,19 @@ class BET(object):
         二分搜索树的前序遍历即DFS
         :return:
         """
-        self.__pre_order(self.root)
+        res=[]
+        self.__pre_order(self.root,res)
+        return res
 
-    def __pre_order(self, root):
+    def __pre_order(self, root,res):
 
         #递归方法先考虑停止条件：即当节点为None时，停止遍历。
         if root==None:
             return
-        print(root.data)
-        self.__pre_order(root.left)
-        self.__pre_order(root.right)
+        res.append(root.data)
+        # print(root.data)
+        self.__pre_order(root.left,res)
+        self.__pre_order(root.right,res)
 
      #
     def contains(self,val):
@@ -113,6 +116,59 @@ class BET(object):
             if cur.right!=None:
                 q.append(cur.right)
 
+    # get min 元素的方法
+    def get_min(self):
+        return self.__get_min(self.root)
+
+    def __get_min(self, node): # helper
+        if (node is None):
+            return None
+        while (node.left is not None):
+            node = node.left
+        return node.data
+
+
+    # remove树元素的方法
+    def remove(self, key):
+        self.root = self.__remove(self.root, key)
+
+    def __remove(self, node, key):  # helper
+        if node is None:
+            return None
+        if (key < node.data):
+            node.left = self.__remove(node.left, key)
+        elif (key > node.data):
+            node.right = self.__remove(node.right, key)
+        else:
+            #找到目标节点，判断目标节点的左右子树的情况，若左子树为空，则用右子树填充剔除的节点；
+            #若右子树为空，则用左子树填充要剔除的节点；
+            if (node.left is None):
+                node = node.right
+                # if rchild is None,  node = None; case 1: no child
+            # if rchild is not None, node = node.right; case 2: one child
+            elif (node.right is None):
+                node = node.left
+            #
+            else:
+                #获取需要删除节点的右子树中的最小值做为要替换的值进行赋值操作；
+                node.data = self.__get_min(node.right)
+                #删除右子树中的该节点
+                node.right = self.__remove(node.right, node.data)
+
+        return node
+
+    def get_all_data(self):
+        res=[]
+        def __get_all(root):
+            if not root:
+                return
+            res.append(root.data)
+            __get_all(root.left)
+            __get_all(root.right)
+        print(res)
+        __get_all(self.root)
+        return res
+
 
 
 bet = BET()
@@ -121,6 +177,10 @@ for i in nums:
     # print(bet.add(i))
     bet.add(i)
 print(bet.pre_order())
-print(bet.contains(5))
-print(bet.contains(-1))
-print(bet.level_order())
+# print(bet.contains(5))
+# print(bet.contains(-1))
+# print(bet.level_order())
+# print(bet.get_max())
+# print(bet.remove(8))
+print(bet.remove(3))
+print(bet.get_all_data())
