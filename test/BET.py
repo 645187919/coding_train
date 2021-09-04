@@ -152,7 +152,7 @@ class BET(object):
             else:
                 #获取需要删除节点的右子树中的最小值做为要替换的值进行赋值操作；
                 node.data = self.__get_min(node.right)
-                #删除右子树中的该节点
+                #删除右子树中的该节点，并让当前节点和删除后的子树相连；
                 node.right = self.__remove(node.right, node.data)
 
         return node
@@ -173,6 +173,7 @@ class BET(object):
 
 bet = BET()
 nums=[5,3,6,8,4,2]
+print(nums)
 for i in nums:
     # print(bet.add(i))
     bet.add(i)
@@ -182,5 +183,5 @@ print(bet.pre_order())
 # print(bet.level_order())
 # print(bet.get_max())
 # print(bet.remove(8))
-print(bet.remove(3))
-print(bet.get_all_data())
+# print(bet.remove(3))
+# print(bet.get_all_data())
