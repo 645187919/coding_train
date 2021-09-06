@@ -53,7 +53,8 @@ class Solution:
 
         return helper(root.left,root.right)
 
-        # 方法二：迭代算法（思想：将根节点的左右节点入队列，然后依次弹出比较。之后再将根节点的孩子节点
+        # 方法二：迭代算法
+        # （思想：将根节点的左右节点入队列，然后依次弹出比较。之后再将根节点的孩子节点
         # 按照对称节点的位置入队列。再迭代的比较。）
         from collections import deque
         if not root:
