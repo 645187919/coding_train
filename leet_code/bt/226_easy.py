@@ -51,6 +51,11 @@ class Solution:
         # root.left=self.invertTree(root.right)
         # root.right=self.invertTree(root.left)
         # return root
+        #正确的写法（按照最小的单元三个元素组成的树，来写递归的实现）
+        tmp=root.left
+        root.left=self.invertTree(root.right)
+        root.right=self.invertTree(tmp)
+        return root
 
 
 
