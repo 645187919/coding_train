@@ -28,7 +28,7 @@
 #         self.right = right
 class Solution:
     def sumOfLeftLeaves(self, root: TreeNode) -> int:
-        #注意这里用self.res而非res。
+        #注意这里用self.res而非res。是某实例的变量，可以在类内部使用
         self.res=0
         def dfs(root):
             #若根节点不存在，则结果为0
