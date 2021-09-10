@@ -26,6 +26,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+#思路：依次穷举每种类型，然后写代码（终止条件即为叶子节点）
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         res=[]
@@ -43,6 +44,23 @@ class Solution:
         dfs(root,'')
         return res
 
+    #方法二：若为空节点则return（结束当前递归）。否则只考虑叶子节点的情况，若是则加入res。
+    #若不是则记录每个节点的值，依次对左右子树做递归（该代码为深度优先）
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        res=[]
+        def helper(root,path):
+            if not root:
+                return
+            path+=str(root.val)
+            #若是叶子节点就加进来
+            if not root.left and not root.right:
+                res.append(path)
+            #否则对左右子树递归
+            helper(root.left,path+'->')
+            helper(root.right,path+'->')
+
+        helper(root,'')
+        return res
 
 
 
