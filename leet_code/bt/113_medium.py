@@ -49,7 +49,7 @@ class Solution:
         self.dfs(root.left, sum - root.val, res, path + [root.val]) # 左子树
         self.dfs(root.right, sum - root.val, res, path + [root.val]) # 右子树
 
-#另一种写法
+#另一种写法（注意tmp + [root.val]的位置以及写法，换成其他的跑不通...）
 class Solution:
     def pathSum(self, root: TreeNode, sum_: int) -> List[List[int]]:
         #用tmp去记录每次的路径
