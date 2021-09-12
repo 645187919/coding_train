@@ -58,6 +58,25 @@
 #         self.right = right
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        #手写的过程
+        def make_tree(start_index,end_index):
+            #递归的构造树。
+            #到达叶子节点停止构造；
+            #否则依次递归的构造根节点的左右子节点
+            if start_index>end_index:
+                return None
+            mid_index=(start_index+end_index)//2
+            #根节点
+            tree_root=TreeNode(nums[mid_index])
+            #递归的构造左子树
+            tree_root.left=make_tree(start_index,mid_index-1)
+            #递归的构造右子树
+            tree_root.right=make_tree(mid_index+1,end_index)
+            return tree_root
+
+        return make_tree(0,len(nums)-1)
+
+
         def make_tree(start_index, end_index): #只和长度有关
             #首先判定我们的区间是否合理，即left_index要<=right_index
             #当相等时，只有root会产生，不会产生左右小树
