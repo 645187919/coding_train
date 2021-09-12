@@ -40,25 +40,49 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    #简易写法：分两种情况，叶子节点和非叶子节点（即递归的终止条件）
     def sumNumbers(self, root: TreeNode) -> int:
         res=[]
-        #记录子路径
-        def sum_total(root,tmp_list):
+
+        def helper(root,path):
             if not root:
                 return
-            print(tmp_list)
+            #若节点不为空，则将节点加入路径记录变量中
+            path+=str(root.val)
+            #若是叶子节点则加入res
             if not root.left and not root.right:
-                tmp_list+=[root.val]
-                res.append(tmp_list)
+                res.append(path)
+            #否则，递归每个非叶子节点的左右子节点
+            else:
+                helper(root.left,path)
+                helper(root.right,path)
+        helper(root,'')
+        sum=0
+        for el in res:
+            sum+=int(el)
+        return sum
 
-            sum_total(root.left,tmp_list+[root.val])
-            sum_total(root.right,tmp_list+[root.val])
-        sum_total(root,[])
-        sum_res=0
-        print(res)
-        for i in res:
-            #注意这里list转化为str时若str中的元素类型为int时则需要先转成str。然后再拼接
-            num="".join(str(j) for j in i)
-            sum_res+=int(num)
-        return sum_res
+
+
+    # def sumNumbers(self, root: TreeNode) -> int:
+    #     res=[]
+    #     #记录子路径
+    #     def sum_total(root,tmp_list):
+    #         if not root:
+    #             return
+    #         print(tmp_list)
+    #         if not root.left and not root.right:
+    #             tmp_list+=[root.val]
+    #             res.append(tmp_list)
+    #
+    #         sum_total(root.left,tmp_list+[root.val])
+    #         sum_total(root.right,tmp_list+[root.val])
+    #     sum_total(root,[])
+    #     sum_res=0
+    #     print(res)
+    #     for i in res:
+    #         #注意这里list转化为str时若str中的元素类型为int时则需要先转成str。然后再拼接
+    #         num="".join(str(j) for j in i)
+    #         sum_res+=int(num)
+    #     return sum_res
 
