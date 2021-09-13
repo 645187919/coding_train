@@ -47,7 +47,7 @@ class Solution:
             return root
         if root is p or root is q:
             return root
-
+        #查找p或q在左右子树中的情况。
         left=self.lowestCommonAncestor(root.left,p,q)
         right=self.lowestCommonAncestor(root.right,p,q)
         if left and right:
