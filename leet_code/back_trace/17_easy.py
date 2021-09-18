@@ -57,6 +57,9 @@ class Solution:
                 #撤销选择
                 path=path[:-1]
 
+                #上面三行代码等效于：back_track(path+word,nextdigit[1:])
+
+
         back_track('',digits)
         return res
 
