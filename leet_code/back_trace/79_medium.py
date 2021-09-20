@@ -5,7 +5,7 @@
 # @File : 79_medium.py 
 # @Software: PyCharm
 
-# 79. 单词搜索
+# 79. 单词搜索（同类型的题：200，130）
 # 给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
 # 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
 # 同一个单元格内的字母不允许被重复使用。
@@ -32,6 +32,8 @@
 #否则不断的迭代；
 #最终在对每个匹配的节点进行上下左右探索的时候，为了避免往回探索，需要将走过的‘路’做标记，
 # 即将以匹配的节点设置为特征状态，探索结束后再复原！
+
+#参考：https://leetcode-cn.com/problems/word-search/solution/79dan-ci-sou-suo-li-jie-liang-ge-xiao-ke-rh6b/
 
 class Solution:
 
