@@ -25,9 +25,11 @@
 # 提示：
 # 0 <= n <= 30
 
-#思路：1、递归；2、通过备忘录或db table 来解决重复子问题。
+#思路：1、递归；2、通过备忘录或db table 来解决重复子问题；3、动态规划
+
 
 class Solution:
+    #方法1：暴力解法
     def fib(self, n: int) -> int:
         #暴力解法：递归
         if n==0:
@@ -37,8 +39,7 @@ class Solution:
 
         return self.fib(n-1)+self.fib(n-2)
 
-    #使用缓存即备忘录（db table）来解决重叠子问题
-
+    #方法2：使用缓存即备忘录（db table）来解决重叠子问题
     @functools.lru_cache(None)#关于该函数资料请参考：https://blog.csdn.net/Victor_Monkey/article/details/80524571
     #该函数功能，将该方法的入参和结果存入缓存，若二次调用，则直接从缓存中取结果，省去计算过程！
     def fib(self, n: int) -> int:
@@ -47,5 +48,17 @@ class Solution:
             return n
         return self.fib(n-1)+self.fib(n-2)
 
+    #方法三：#动态规划：自底向上
+    def fib(self, n: int) -> int:
 
+        if n<=1:
+            return n
+        else:
+            #动态规划
+            dp=['-1']*(n+1)
+            #base case
+            dp[0],dp[1],dp[2]=0,1,1
+            for i in range(3,n+1):
+                dp[i]=dp[i-1]+dp[i-2]
+            return dp[n]
 
