@@ -4,3 +4,8 @@
 # @Author : magician 
 # @File : __init__.py.py 
 # @Software: PyCharm
+
+
+
+for i in range(3,3):
+    print(i)
