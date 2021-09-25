@@ -32,22 +32,21 @@
 # -104 <= triangle[i][j] <= 104
 
 #思路：考虑每层的首尾元素得特殊处理。自顶向下，每个元素的dp值等于上层相邻的元素的dp值+该元素的值
-
+# 详情参考：https://leetcode-cn.com/problems/triangle/solution/san-jiao-xing-zui-xiao-lu-jing-he-by-leetcode-solu/
 
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         m, n = len(triangle),len(triangle[-1])
         #1、dp[i][j]:代表自顶向下走到i行j列对应的最小路径和。
         dp=[[0]*n for i in range(m)]
-        #dp[i][j]=triangle[i,j]+min(dp[i-1][j],dp[i-1][j+1])
         #3、初始化：dp[0][0]=triangle[0][0]
+        #特殊情况
         if m==1:
             return triangle[0][0]
         #所以初始值都设置为负无穷大
         dp[0][0]=triangle[0][0]
         dp[1][0]=triangle[0][0]+triangle[1][0]
         dp[1][1]=triangle[0][0]+triangle[1][1]
-
 
         #4、确定遍历方向
         for i in range(2,m):
@@ -60,6 +59,5 @@ class Solution:
                     dp[i][j]=triangle[i][j]+dp[i-1][j-1]
                 else:
                     dp[i][j]=triangle[i][j]+min(dp[i-1][j],dp[i-1][j-1])
-        print(dp)
         return min(dp[-1])
 

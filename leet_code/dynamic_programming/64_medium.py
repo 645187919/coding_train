@@ -47,10 +47,8 @@ class Solution:
                     continue
                 if i==0:
                     dp[i][j]=dp[i][j-1]+grid[i][j]
-                    continue
                 if j==0:
                     dp[i][j]=dp[i-1][j]+grid[i][j]
-                    continue
                 else:
                     dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j]
         return dp[-1][-1]
