@@ -25,6 +25,7 @@
 # 1 <= nums.length <= 100
 # 0 <= nums[i] <= 400
 
+#参考：https://leetcode-cn.com/problems/house-robber/solution/dong-tai-gui-hua-jie-ti-si-bu-zou-xiang-jie-cjavap/
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
