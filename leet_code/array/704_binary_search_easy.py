@@ -35,6 +35,18 @@ def binary_search_2(alist,target):
             l=mind+1
     return -1
 
+def binary_search(alist, item):
+    """二分查找,递归"""
+    n = len(alist)
+    if n > 0:
+        mid = n//2
+        if alist[mid] == item:
+            return True
+        elif item < alist[mid]:
+            return binary_search(alist[:mid], item)
+        else:
+            return binary_search(alist[mid+1:], item)
+    return False
 
 
 

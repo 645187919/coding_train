@@ -47,22 +47,15 @@ class Solution:
 
         return s+1
 
-
-        # s=0
-        # n_len=len(nums)
-        # #元素重复的标识
-        # count=1
-        # for f in range(1,n_len):
-        #     #若元素不重复，则扩充目标数组（满指针数组，只需要将目标值添加到目标指针索引+1的位置）
-        #     if nums[s]!=nums[f]:
-        #         count=1
-        #         s+=1
-        #         nums[s]=nums[f]
-        #     #若元素重复，则先判断重复标识，若元素出现一次，则将元素加入目标数组，并更改重复标识
-        #     else:
-        #         if count==1:
-        #             count+=1
-        #             s+=1
-        #             nums[s]=nums[f]
-        #
-        # return s+1
+    #方法二：双指针：一个维护动态数组的大小，一个比较s和s+2索引的元素是否相等
+    # 由于是有序的，所以只需要管局s和s+2索引的位置是否相等，若相等则剔除s+2的元素
+    def removeDuplicates(self, nums: List[int]) -> int:
+        s=0
+        lens=len(nums)-2
+        while lens>s:
+            if nums[s]==nums[s+2]:
+                nums.pop(s+2)
+                lens-=1
+            else:
+                s+=1
+        return len(nums)

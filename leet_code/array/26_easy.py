@@ -6,8 +6,8 @@
 # @Software: PyCharm
 
 #26. 删除排序数组中的重复项
-# 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
-# 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+# 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+# 不要使用额外的数组空间，你必须在原地修改输入数组 并在使用 O(1) 额外空间的条件下完成。
 
 # 示例 1:
 # 给定数组 nums = [1,1,2],
@@ -19,20 +19,17 @@
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        # n=len(nums)
-        # # if nums is null or n==0:
-        # #     return
-        # s=0
-        # f=1
-        # while f<n:
+        #方法一：双指针指针。一个指针用于排除重复元素，一个指针用于维护动态数组的长度。
 
-        #     if nums[s]==nums[f]:
-        #         f+=1
-        #     elif nums[s]!=nums[f]:
-        #         nums[s+1]=nums[f]
-        #         f+=1
-        #         s+=1
-        # return len(nums[:s+1])
+        s=0
+        lens=len(nums)-1
+        while lens>s:
+            if nums[s]==nums[s+1]:
+                nums.pop(s+1)
+                lens-=1
+            else:
+                s+=1
+        return len(nums)
 
 
 
