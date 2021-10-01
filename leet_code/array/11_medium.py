@@ -6,7 +6,9 @@
 # @Software: PyCharm
 
 # 11. 盛最多水的容器
-# 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+# 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+# 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。
+# 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
 #
 # 说明：你不能倾斜容器，且 n 的值至少为 2。
 # 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
@@ -59,3 +61,25 @@ class Solution:
                     max_val=new_area
 
         return max_val
+
+    #20211001新的实现
+    def maxArea(self, height: List[int]) -> int:
+        #对撞指针思想：抓住向内移动短板，面积可能会更大的要点。
+
+        l=0
+        r=len(height)-1
+        max_result=0
+        #对撞指针
+        while l<r:
+            #计算面积
+            tmp_result=min(height[l],height[r])*(r-l)
+            #若大于临时最大值，则替代。
+            if max_result<tmp_result:
+                max_result=tmp_result
+            #那条边短，移动那条边。
+            if height[l]<height[r]:
+                l+=1
+            else:
+                r-=1
+
+        return max_result
