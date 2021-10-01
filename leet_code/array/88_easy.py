@@ -57,4 +57,22 @@ class Solution:
 
 
 
+    #第二次写
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        m_i=0
+        n_i=0
+        tmp=[]
+        while m_i<m and n_i<n:
+            if nums1[m_i]>nums2[n_i]:
+                tmp.append(nums2[n_i])
+                n_i+=1
+            else:
+                tmp.append(nums1[m_i])
+                m_i+=1
 
+        tmp=tmp+nums1[m_i:m]
+        tmp=tmp+nums2[n_i:n]
+        return nums1
