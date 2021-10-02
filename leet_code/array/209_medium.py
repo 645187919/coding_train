@@ -7,7 +7,8 @@
 
 
 # 209. 长度最小的子数组
-# 给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。
+# 给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组，
+# 并返回其长度。如果不存在符合条件的子数组，返回 0。
 
 # 示例：
 # 输入：s = 7, nums = [2,3,1,2,4,3]
@@ -47,3 +48,27 @@ class Solution:
         return min_length
 
 
+#20211001 新实现
+# 参考：https://leetcode-cn.com/problems/minimum-size-subarray-sum/solution/hua-dong-chuang-kou-on-er-fen-fa-onlogn-by-powcai/
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+
+        nums_len=len(nums)
+        #特殊情况
+        if sum(nums)<target:
+            return 0
+        if sum(nums)==target:
+            return nums_len
+        tmp_total=0
+        #滑动窗口的左索引
+        left=0
+        result=float("inf")
+        #滑动窗口的右索引
+        for right in range(nums_len):
+            #元素的累加值
+            tmp_total+=nums[right]
+            #若当前窗口的累加值满足条件，则求最小的长度，并剔除左索引值后，再循环判断。
+            while  tmp_total>=target:
+                result=min(result,right-left+1)
+                tmp_total-=nums[left]
+                left+=1
+        return result

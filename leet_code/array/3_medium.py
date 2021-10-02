@@ -7,7 +7,7 @@
 
 
 # 3. 无重复字符的最长子串
-# 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+# 给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
 #
 # 示例 1:
 #
@@ -63,3 +63,33 @@ class Solution:
                 max_length=cur_length
 
         return max_length
+
+#方法2：套路代码
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:return 0
+        #左指针
+        left = 0
+        #子串的集合
+        lookup = set()
+        #字符串的长度
+        n = len(s)
+        #最长子串的长度
+        max_len = 0
+        #当前子串的长度
+        cur_len = 0
+        for i in range(n):
+            #先维护子串长度
+            cur_len += 1
+            #对子串进行处理
+            while s[i] in lookup:
+                #若当前字符在子串中，则剔除左边的字符
+                lookup.remove(s[left])
+                #左指针+1
+                left += 1
+                #当前子串长度-1
+                cur_len -= 1
+            #动态维护最长子串的长度
+            if cur_len > max_len:max_len = cur_len
+            #将s[i]加入子串子集。
+            lookup.add(s[i])
+        return max_len
