@@ -7,11 +7,11 @@
 
 # 290. 单词规律
 # 给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
-#
-# 这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串 str 中的每个非空单词之间存在着双向连接的对应规律。
+
+# 这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串 str 中的每个非空单词之间存在着
+# 双向连接的对应规律。
 #
 # 示例1:
-#
 # 输入: pattern = "abba", str = "dog cat cat dog"
 # 输出: true
 # 示例 2:
@@ -56,6 +56,36 @@ class Solution:
 
         return True
 
+#20211002实现
+def wordPattern(self, pattern: str, s: str) -> bool:
+    #用map来存储，key存储pattern，val存储str，之后遍历map，看相同的key下对应的val是否也相同
+
+    dic={}
+
+    s_arr=s.split(" ")
+
+    s_arr_list=[i for i in s_arr]
+
+    if len(s_arr_list)!=len(pattern):
+        return False
+    if len(set([i for i in pattern]))!=len(set(s_arr_list)):
+        return False
+
+
+    for i in range(len(pattern)):
+        if dic.get(pattern[i]) is None:
+            #判断val是否已存在dic中
+            if s_arr[i] in dic.values():
+                return False
+            else:
+                dic[pattern[i]]=s_arr[i]
+
+        else:
+            if dic[pattern[i]]==s_arr[i]:
+                continue
+            else:
+                return False
+    return True
 
 
 
