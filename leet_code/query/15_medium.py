@@ -24,6 +24,7 @@
 # -105 <= nums[i] <= 105
 
 #思路：排序+双指针。确定一个元素，然后用双指针来遍历（双指针指向该元素后面的位置）
+# 参考：https://leetcode-cn.com/problems/3sum/solution/3sumpai-xu-shuang-zhi-zhen-yi-dong-by-jyd/
 
 class Solution:
     def threeSum(self, nums: [int]) -> [[int]]:
@@ -34,7 +35,7 @@ class Solution:
         for k in range(len(nums) - 2):
             #若num[k]>0,则三个正数之和大于0
             if nums[k] > 0: break
-            #重复元素，则跳过，防止重复解（剪枝操作）
+            #非首次执行且有重复元素，则跳过，防止重复解（剪枝操作）
             if k > 0 and nums[k] == nums[k - 1]: continue # 2. skip the same `nums[k]`.
             #i和j分为位于k元素后的子序列中的开始和结尾的指针。
             i, j = k + 1, len(nums) - 1
