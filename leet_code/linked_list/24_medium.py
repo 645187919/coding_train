@@ -40,6 +40,10 @@ class Solution:
         pre=dumy_head
         print(id(pre))
         print(pre.next)
+        #这里用pre的原因：pre指针是链表重新指向后的首节点，
+        # 移动首节点，整个链表的位置不会乱。
+        #若用cur表示，则重指向后，cur代表的是链表中的节点，这时候移动cur指针，
+        # 则pre节点的指向就发生重复盖进而引起混乱。
         while pre.next and pre.next.next:
             #（生成a,b两个指针）
             a,b=pre.next,pre.next.next

@@ -17,6 +17,7 @@
 # 输出: 1->4->3->2->5->NULL
 
 #思路：先找到需要反转的链表，然后利用双指针反转，参考206。最后把反转后的链表和原链表进行连接
+#多声明些指针没坏处。
 
 # Definition for singly-linked list.
 class ListNode:
@@ -48,8 +49,11 @@ class Solution:
             #移动pre和cur
             pre = cur
             cur = next
-        #将反转后的链表和原始链表链接
+        #将反转后的链表和原始链表链接。
+        #d代表的是初始反转链表的最后一个元素。
+        #a代表的数据初始的pre指针。即将pre指针和反转后的尾元素连起来。
         a.next = d
+        #b代表的是初始反转链表的第一个元素，c代表的是初始反转链表尾元素的下一个元素
         b.next = c
         return dummy.next
 
