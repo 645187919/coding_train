@@ -17,11 +17,16 @@ print(p3.val)
 p3.val=4
 print(l3.val)
 print(p3.val)
+print(l3.next)
+print(p3.next)
 #p3指向一个新节点
 p3.next=ListNode(2)
+print(l3.next.val)
+print(p3.next.val)
 print(l3.val)
 print(p3.val)
 #移动过去
 p3=p3.next
 print(l3.val)
 print(p3.val)
+
