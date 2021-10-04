@@ -33,6 +33,10 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+#参考：https://leetcode-cn.com/problems/symmetric-tree/solution/101-dui-cheng-er-cha-shu-di-gui-fa-die-dai-fa-xian/
+#（详细说递归的写法）
+
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
 

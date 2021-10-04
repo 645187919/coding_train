@@ -28,7 +28,8 @@
 
 
 #思路：https://leetcode-cn.com/problems/invert-binary-tree/solution/di-gui-han-shu-zen-yao-xie-ben-wen-bang-zhu-ni-li-/
-
+#参考：更直白的写法
+# https://leetcode-cn.com/problems/invert-binary-tree/solution/dong-hua-yan-shi-liang-chong-shi-xian-226-fan-zhua/
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -48,14 +49,27 @@ class Solution:
 # 这是因为第一行修改了root.left，会影响了第二行。
 # 在 Python 中，正确的写法是把两行写在同一行，就能保证 root.left 和 root.right 的修改是同时进行的。
 
-        # root.left=self.invertTree(root.right)
-        # root.right=self.invertTree(root.left)
-        # return root
-        #正确的写法：按照最小的单元即三个元素组成的树，来写递归的实现。写完用这个例子还可验证一下。
-        tmp=root.left
-        root.left=self.invertTree(root.right)
-        root.right=self.invertTree(tmp)
+    #方法2：迭代法bfs
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return
+
+        queue=[root]
+        while queue:
+            ll=[]
+
+            for node in queue:
+                #互换
+                node.left,node.right=node.right,node.left
+                if node.left:
+                    ll.append(node.left)
+                if node.right:
+                    ll.append(node.right)
+            queue=ll
         return root
+
+
 
 
 

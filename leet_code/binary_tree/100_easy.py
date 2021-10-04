@@ -27,6 +27,8 @@
 # 注意先思考递归的终止条件：1、两个节点的值不等。两个节点若一个存在一个不存在，两个节点为空。
 #否则分别递归的比较左右两个孩子节点。
 
+# 参考：https://leetcode-cn.com/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -36,16 +38,15 @@
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         #判断特征条件
-        #如果两节点都为空，返回true；
+        #若p和q都为空：叶子节点，返回true；
         if not p and not q:
             return True
-        #如果两节点一个为空一个不为空，返回false；
+        #如果两节点一个为空一个不为空（上面剔除了两节点都为None的情况）；
         elif not p or not q:
             return False
         #停止条件：若两个比较节点的值不同，则停止
-        elif p.val!=q.val:
+        if p.val!=q.val:
             return False
         #否则就递归的比较左右两个孩子节点的值
-        else:
-            return self.isSameTree(p.left,q.left) & self.isSameTree(p.right,q.right)
+        return self.isSameTree(p.left,q.left) & self.isSameTree(p.right,q.right)
 

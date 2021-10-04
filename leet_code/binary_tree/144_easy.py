@@ -51,5 +51,35 @@ class Solution:
         preorder(root)
         return res
 
+#bfs
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+
+        def preorder(root):
+            if not root:
+                return []
+            queue=[root]
+
+            while queue:
+                #获取当前层的节点的值
+                res.append([node.val for node in queue])
+                #收集下一层的节点
+                ll=[]
+
+                for node in queue:
+                    if node.left:
+                        ll.append(node.left)
+                    if node.right:
+                        ll.append(node.right)
+                queue=ll
+        res=[]
+        preorder(root)
+        return res
+
+
+
+
+
+
 
 
