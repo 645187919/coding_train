@@ -27,7 +27,6 @@
 
 # 思路一：迭代/BFS
 # 层序遍历自然用广度优先搜索(BFS)最合适了
-#
 #1、 用队列来保存节点，先进先出，因为题目要求不同层的节点值要分开保存，
 # 那while循环里还需要for循环来一次性搞完该层所有节点
 #
@@ -47,6 +46,7 @@
 
 
 # 详细参考：https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/python3-er-cha-shu-ceng-xu-bian-li-by-jo-nlx3/
+#参考：https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/tao-mo-ban-bfs-he-dfs-du-ke-yi-jie-jue-by-fuxuemin/
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -55,6 +55,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    #方法1：BFS+迭代
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         #如果root为空则返回空
         if not root:
@@ -83,12 +84,14 @@ class Solution:
         return res
 
 
-        #思路2：dfs+递归
+    #思路2：dfs+递归
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
         res=[]
         def dfs(root,deep):
             if not root:
                 return
-            #res的第一层元素代表的是每层存储的val值。若deep和res长度相同，则代表当前需要空的list来存储新的val。
+            #res的第一层元素代表的是每层存储的val值。
+            # 若deep和res长度相同，则代表当前需要空的list来存储新的val。
             if len(res)==deep:
                 res.append([])
 
