@@ -23,8 +23,7 @@
 #     15   7
 # 返回它的最大深度 3 。
 
-#思路:遍历存储每个节点的深度，然后获取最大值。
-
+# 思路1：遍历存储每个节点对应的深度，然后选取其中的最大值！
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -47,7 +46,7 @@ class Solution:
         print(res)
         return 0 if len(res)==0 else max(res)
 
-
+# 思路2：将求深度的问题转化为求当前节点深度1+孩子节点的深度的最大值。依次递归。
 #将求深度的问题转化为求当前节点深度1+孩子节点的深度的最大值。依次递归。
 class Solution:
     def maxDepth(self, root):

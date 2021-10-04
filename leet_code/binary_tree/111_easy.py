@@ -24,6 +24,7 @@
 # 树中节点数的范围在 [0, 105] 内
 # -1000 <= Node.val <= 1000
 
+#思路2：递归。注意递归的一些陷阱，要考虑左右子节点为空的情况：
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -45,3 +46,25 @@ class Solution:
         #如[2,null,3,null,4,null,5,null,6] 返回值就为1，实质为5
         else:
             return 1+min(self.minDepth(root.left),self.minDepth(root.right))
+
+
+    #思路1：求每个叶子节点的深度，求最小值；
+    def minDepth(self, root: TreeNode) -> int:
+        #遍历节点得到每个叶子节点的深度，然后找到最小值。
+        def helper(root,deep):
+            if not root:
+                return
+            #叶子节点
+            if not root.left and not root.right:
+                res.append(deep)
+
+                # res.append(deep)
+
+            helper(root.left,deep+1)
+            helper(root.right,deep+1)
+        res=[]
+        if not root:
+            return 0
+        helper(root,1)
+        print(res)
+        return min(res)
