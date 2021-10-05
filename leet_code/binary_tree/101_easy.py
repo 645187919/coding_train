@@ -47,7 +47,7 @@ class Solution:
             # left/right都为空节点
             if not left and not right:
                 return True
-            # left/right有一个为空
+            # left/right有一个为空（全为空在上面已排除）
             elif not left or not right:
                 return False
             elif left.val!=right.val:

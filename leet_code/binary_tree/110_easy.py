@@ -25,6 +25,8 @@
 # 树中的节点数在范围 [0, 5000] 内
 # -104 <= Node.val <= 104
 
+# 参考：https://leetcode-cn.com/problems/balanced-binary-tree/solution/zi-ding-xiang-xia-he-zi-di-xiang-shang-by-powcai/
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):

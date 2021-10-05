@@ -34,9 +34,19 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        if not root: return False
-        if not root.left and not root.right:
-            return targetSum == root.val
-        return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
+        #递归三部曲
+        #1、递归函数的参数及返回值：root，targetsum;布尔值；
 
+        #2、终止条件：若到达根节点则返回False；若路径和大于targetsum终止（没法判断！！）；
+        # 若路径和targetsum等于叶子节点的值则返回True。
 
+        def helper(root,targetSum):
+            if not root:
+                return False
+            if targetSum==root.val and (not root.left and not root.right):
+                return True
+            #3、单层递归的逻辑：target先减去当前节点的值，然后再递归的去左右子树进行操作。
+            # 将左右子树的结果汇总。
+            tmp=targetSum-root.val
+            return helper(root.left,tmp) or helper(root.right,tmp)
+        return helper(root,targetSum)
