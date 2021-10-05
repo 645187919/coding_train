@@ -47,18 +47,19 @@ class Solution:
     #方法二：若为空节点则return（结束当前递归）。否则只考虑叶子节点的情况，若是则加入res。
     #若不是则记录每个节点的值，依次对左右子树做递归（该代码为深度优先）
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
-        res=[]
+        #1、递归函数的参数及返回结果：path，root；所有的路径。
         def helper(root,path):
+            #2、终止条件：子树的根节点为空则终止；
+
             if not root:
                 return
-            path+=str(root.val)
-            #若是叶子节点就加进来
+            #3、单层逻辑：对当前路径进行累加，若为叶子节点，则将路径放入列表中，遍历其左右子树
+            path=path+str(root.val)
             if not root.left and not root.right:
                 res.append(path)
-            #否则对左右子树递归
             helper(root.left,path+'->')
             helper(root.right,path+'->')
-
+        res=[]
         helper(root,'')
         return res
 
