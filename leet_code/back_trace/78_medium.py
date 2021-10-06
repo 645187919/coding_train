@@ -27,23 +27,23 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
 
+
         res=[]
         nums_len=len(nums)
 
         def helper(path,choise):
             print(path)
             print(choise)
-            #终止条件：若路径小于等于nums长度，则加入然后停止
-            if nums_len>=len(path) and res!=[]:
+            #终止条件：若路径小于等于nums长度。
+            if nums_len>=len(path):
                 res.append(path)
-                #注意return的作用：结束当前的递归。
-                # 若不加return则代表在该递归条件下接着走下面的程序，在树结构中相当于不断的向树底探索。
                 #return
-            else:
-                res.append(path)
 
             for i in range(len(choise)):
                 helper(path+[choise[i]],choise[i+1:])
+
+        helper([],nums)
+        return res
 
         helper([],nums)
         return res

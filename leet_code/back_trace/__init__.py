@@ -6,13 +6,15 @@
 # @Software: PyCharm
 
 
-choise=[2,3,1]
-# li.sort(reverse=True)
-# print(li)
-i=1
-print(choise[:i:-1])
-print(choise[:i]==choise[:i:-1])
+# choise=[2,3,1]
+# # li.sort(reverse=True)
+# # print(li)
+# i=1
+# print(choise[:i:-1])
+# print(choise[:i]==choise[:i:-1])
 
+choise=[]
+print(sum(choise))
 
 # m=len(li)
 # n=4

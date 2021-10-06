@@ -37,6 +37,8 @@ class Solution:
             #for 选择 in range(选择列表)
             for i in range(len(choise)):
                 #一定要注意是题目要求是不重复的数据，也就是每次迭代的选择列表要剔除掉当前选择的节点元素！！
+                #path+[choise[i]]：选择的路径;
+                #choise[0:i]+choise[i+1:]：剩余的选择
                 helper(path+[choise[i]],choise[0:i]+choise[i+1:])
 
         helper([],nums)
