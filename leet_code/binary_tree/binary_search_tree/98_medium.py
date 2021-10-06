@@ -36,3 +36,23 @@ def isValidBST(self, root: TreeNode, low = float('-inf'), high = float('inf')) -
     if not root:return True
     if not low<root.val<high:return False
     return self.isValidBST(root.left,low,root.val) and self.isValidBST(root.right,root.val,high)
+
+#20211006 update
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        self.res=True
+
+        #1、定义递归函数的参数(每次迭代包含一个最大和最小值的范围)和返回值（bool）。
+        def helper(root,min,max):
+
+            #2、递归终止条件
+            if not root:
+                return
+            if root.val<=min or root.val>=max:
+                self.res=False
+                return
+                #单层递归的逻辑：对其子树进行核验(左子树最大值限制，右子树最小值限制)
+            helper(root.left,min,root.val)
+            helper(root.right,root.val,max)
+        helper(root,-float('inf'),float('inf'))
+        return self.res

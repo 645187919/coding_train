@@ -45,43 +45,6 @@
 #         self.right = right
 class Solution:
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
-        # tmp=root
-
-        # def get_min(root):
-        #     if not root:
-        #         return
-        #     while root.left is not None:
-        #         root=root.left
-        #     return root.val
-
-
-        # def remove(self,root,key):
-        #     if not root:
-        #         return None
-
-        #     if root.val>key:
-        #         #对左子树接着进行删除操作,当前节点的左子树指向删除后子树
-        #         root.left=self.remove(root.left,key)
-        #     elif root.val<key:
-        #         root.right=self.remove(root.right,key)
-        #     else:
-        #         #等于key,看子树的类型
-        #         if root.left is None and root.right is None:
-        #             root = None
-        #             return root
-        #         #若只有右子树，则覆盖root节点
-        #         elif not root.left:
-        #             root=root.right
-        #         elif not root.right:
-        #             root=root.left
-        #         else:
-        #             #去要剔除节点的右子树中寻找最小的节点值，并进行覆盖
-        #             root.val=self.get_min(root.right)
-        #             #删除右子树中最小的节点值
-        #             root.right=self.remove(root.right,root.val)
-
-        #     return root
-
 
         # 思路：先查找待删除结点
         # 找到后有四种情况

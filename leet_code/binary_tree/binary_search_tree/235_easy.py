@@ -35,6 +35,8 @@
 # 如果再同侧，则再往下层递归，如在两侧，则返回当前节点
 # 注意一下边界条件，得出代码：
 
+#参考：
+# https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/solution/python3-di-gui-si-kao-guo-cheng-by-terryli/
 
 # Definition for a binary tree node.
 # class TreeNode:
