@@ -53,4 +53,40 @@ class Solution:
         restore(0,'',s)
         return r
 
+# 参考：https://leetcode-cn.com/problems/restore-ip-addresses/solution/python3-hui-su-suan-fa-bao-li-sou-suo-ji-1hzx/
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        #结果存储函数
+        result = []
+        #当前路径
+        path = []
+        #回溯函数
+        def back_track(s, index):
+            #减枝，如果搜索路径大于4，直接返回
+            if len(path) > 4:
+                return
+                #全部搜素完成，搜索路径等于4，则加入结果列表
+            if index == len(s) and len(path) == 4:
+                result.append(".".join(path))
+                return
+            #遍历整个字符串，对每一个满足的子串递归回溯
+            for i in range(index, len(s)):
+                #减枝，如果当前值在0-255之前，则开始回溯
+                if 0 <= int(s[index : i+ 1]) <= 255:
+                    #如果当前值是0，但是不是一个单"0"则剪掉
+                    if int(s[index : i+ 1]) == 0 and i != index:
+                        continue
+                    #如果当前值不是0，但是缺以"0XXX"开头，也应该剪掉
+                    if int(s[index : i+ 1]) > 0 and s[index] == "0":
+                        continue
+                    #加入当前path
+                    path.append(s[index: i+ 1])
+                    #从当前节点开始递归
+                    back_track(s, i + 1)
+                    #回溯
+                    path.pop()
+        back_track(s, 0)
+        return result
+
+
 

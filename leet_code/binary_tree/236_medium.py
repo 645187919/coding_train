@@ -31,6 +31,10 @@
 
 #思路口诀：【最近公共祖先】空或搜到即返回。左搜搜，右搜搜。左右都有，那就是你；左没便在右，右没便在左
 
+#参考：
+# 1、https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/solution/zhong-xu-bian-li-bian-yi-ge-kou-jue-bang-zhu-li-ji/
+# 2、https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -56,3 +60,23 @@ class Solution:
             return right
         if not right:
             return left
+#20211006 updtate
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def helper(root,p,q):
+            #递归输入，输出
+            #递归终止条件
+            if not root:
+                return
+            #root和p，q是否相等
+            if root is p or root is q:
+                return root
+            #递归单层逻辑：
+            left=helper(root.left,p,q)
+            right=helper(root.right,p,q)
+            if left and right:
+                return root
+            if not left:
+                return right
+            if not right:
+                return left
+        return helper(root,p,q)

@@ -27,7 +27,7 @@
 
 #思路：回溯
 #参考：https://leetcode-cn.com/problems/palindrome-partitioning/solution/dong-tai-gui-hua-dfs-by-powcai/
-#https://leetcode-cn.com/problems/palindrome-partitioning/solution/hui-su-fa-si-lu-yu-mo-ban-by-fuxuemingzh-azhz/
+#https://leetcode-cn.com/problems/palindrome-partitioning/solution/131-fen-ge-hui-wen-chuan-hui-su-sou-suo-yp2jq/
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
@@ -53,4 +53,26 @@ class Solution:
                     #tmp.pop()
                     helper(s[i:], tmp+[s[:i]])
         helper(s, [])
+        return res
+
+#20211006 update
+
+    def partition(self, s: str) -> List[List[str]]:
+
+        len_s=len(s)
+        res = []
+        #确定回溯函数的参数及返回值
+        def helper(path,choise):
+            #终止条件：若path的长度等于s总长度
+            tmp="".join(path)
+            # print(len(tmp))
+            if len(tmp)==len_s:
+                res.append(path)
+                return
+
+            for i in range(1,len(choise)+1):
+                #若是回文串，则对剩余字符串进行递归:注意如何将一个列表反转
+                if choise[:i]==choise[:i][::-1]:
+                    helper(path+[choise[:i]],choise[i:])
+        helper([],s)
         return res
