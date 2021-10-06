@@ -7,7 +7,7 @@
 
 
 # 113. 路径总和 II
-# 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
+# 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有从根节点到叶子节点路径总和等于给定目标和的路径。
 # 叶子节点 是指没有子节点的节点。
 # 示例 1：
 # 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
@@ -51,18 +51,23 @@ class Solution:
 
 #另一种写法（注意tmp + [root.val]的位置以及写法，换成其他的跑不通...）
 class Solution:
-    def pathSum(self, root: TreeNode, sum_: int) -> List[List[int]]:
-        #用tmp去记录每次的路径
-        def helper(root, tmp, sum_):
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        #1、定义递归函数的参数和返回值；root，sum，path。res满足条件的路径集合
+        #2、递归终止条件：子树的根节点为空终止。
+        #3、单层逻辑：若满足叶子节点且路径和为target的条件则将其加入res，然后再对其左右子树进行递归；
+        def helper(root,sum,path):
             if not root:
                 return
-            if not root.left and not root.right and sum_ - root.val == 0:
-                tmp += [root.val]
-                res.append(tmp)
-            helper(root.left, tmp + [root.val], sum_ - root.val)
-            helper(root.right, tmp + [root.val], sum_ - root.val)
-        res = []
-        helper(root, [], sum_)
+            #注意这里若换成path.append(root.val)则跑不通。
+            #两个表达式相比path值没有被覆盖。
+            path=path+[root.val]
+            if not root.left and not root.right and sum==root.val:
+                res.append(path)
+                return
+            helper(root.left,sum-root.val,path)
+            helper(root.right,sum-root.val,path)
+        res=[]
+        helper(root,sum,[])
         return res
 
 

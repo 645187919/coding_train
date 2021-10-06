@@ -53,14 +53,11 @@ class Solution:
             if not root.left and not root.right:
                 res.append(path)
             #否则，递归每个非叶子节点的左右子节点
-            else:
-                helper(root.left,path)
-                helper(root.right,path)
+            helper(root.left,path)
+            helper(root.right,path)
         helper(root,'')
-        sum=0
-        for el in res:
-            sum+=int(el)
-        return sum
+        #list求和的简便写法
+        return sum([int(num) for num in res])
 
 
 
