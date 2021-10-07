@@ -8,7 +8,9 @@
 
 # 120. 三角形最小路径和
 # 给定一个三角形 triangle ，找出自顶向下的最小路径和。
-# 每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。
+# 每一步只能移动到下一行中相邻的结点上。相邻的结点在这里指的是下标与上一层结点下标相同或者等于
+# 上一层结点下标 + 1 的两个结点。也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i
+# 或 i + 1 。
 #
 # 示例 1：
 # 输入：triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
@@ -32,32 +34,34 @@
 # -104 <= triangle[i][j] <= 104
 
 #思路：考虑每层的首尾元素得特殊处理。自顶向下，每个元素的dp值等于上层相邻的元素的dp值+该元素的值
-# 详情参考：https://leetcode-cn.com/problems/triangle/solution/san-jiao-xing-zui-xiao-lu-jing-he-by-leetcode-solu/
-
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        m, n = len(triangle),len(triangle[-1])
-        #1、dp[i][j]:代表自顶向下走到i行j列对应的最小路径和。
-        dp=[[0]*n for i in range(m)]
-        #3、初始化：dp[0][0]=triangle[0][0]
-        #特殊情况
-        if m==1:
-            return triangle[0][0]
-        #所以初始值都设置为负无穷大
-        dp[0][0]=triangle[0][0]
-        dp[1][0]=triangle[0][0]+triangle[1][0]
-        dp[1][1]=triangle[0][0]+triangle[1][1]
+        #1、确认dp数组:dp[i][j]最小的路径和；
+        #注意如何生成矩阵（三角形）的dp数组
+        dp=[[0]*len(triangle[row])  for row in range(len(triangle))]
+        #2、确定递推方程：
+        #i,j不为边界索引：dp[i][j]=min(dp[i-1][j]+triangle[i][j],dp[i-1][j-1]+triangle[i][j])
+        #i,j为边界索引：dp[i][j]=dp[i-1][j]++triangle[i][j]
 
-        #4、确定遍历方向
-        for i in range(2,m):
-            #2、递推公式：
-            #每层的首元素
-            dp[i][0]=dp[i-1][0]+triangle[i][0]
-            for j in range(1,len(triangle[i])):
-                #每层的末尾元素的处理
-                if j==len(triangle[i])-1:
-                    dp[i][j]=triangle[i][j]+dp[i-1][j-1]
+        #3、初始值；dp[i][j]=triangle[i][j]
+        #4、遍历方式：
+        for i in range(len(triangle)):
+            for j in range(len(triangle[i])):
+                if i==0 and j==0:
+                    dp[i][j]=triangle[i][j]
+                elif j==0:
+                    print(i,j)
+                    dp[i][j]=dp[i-1][j]+triangle[i][j]
+                elif i==j:
+                    dp[i][j]=dp[i-1][j-1]+triangle[i][j]
                 else:
-                    dp[i][j]=triangle[i][j]+min(dp[i-1][j],dp[i-1][j-1])
+                    dp[i][j]=min(dp[i-1][j]+triangle[i][j],dp[i-1][j-1]+triangle[i][j])
         return min(dp[-1])
+
+
+
+
+
+
+
 

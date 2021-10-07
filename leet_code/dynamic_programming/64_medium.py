@@ -27,28 +27,27 @@
 
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
+        #1、dp[i][j]:走到该节点处的最小路径
+        #注意如何生成矩形的数组
+        len_grid=len(grid)
+        len_col=len(grid[0])
+        dp=[[0]*len(grid[n]) for n in range(len_grid)]
+        #2、确定递推方程：
+        #i和j没有位于首行或首列：dp[i][j]=min(dp[i-1][j]+grid[i][j],dp[i][j-1]+grid[i][j])
+        #i和j位于首行或首列：dp[i][j]=dp[i-1][j]+grid[i][j] or dp[i][j-1]+grid[i][j]
+        # #(里面的所有坐标是有效的)
+        #3、初始化：dp[0][0]=grid[0][0]
+        #4、遍历方向：
 
-        #dp[i][j]:第i,j单元对应的最小数字和。
-
-        #递推公式：特殊情况，i和j非边界元素（注意边界元素为0行和0列的元素）
-        #dp[i][j]=min(dp[i-1][j]+dp[i][j-1])+grid[i][j]
-        #若i或j为边界元素0
-        #i=0:dp[i][j]=dp[i][j-1]+grid[i][j]
-        #j=0:dp[i][j]=dp[i-1][j]+grid[i][j]
-        m=len(grid)
-        n=len(grid[0])
-        dp=[[0]*n for i in range(m)]
-
-        dp[0][0]=grid[0][0]
-        for i in range(0,m):
-            for j in range(0,n):
-                #递推公式
+        for i in range(len_grid):
+            for j in range(len_col):
                 if i==0 and j==0:
-                    continue
-                if i==0:
+                    dp[i][j]=grid[i][j]
+                elif i==0:
                     dp[i][j]=dp[i][j-1]+grid[i][j]
-                if j==0:
+                elif j==0:
                     dp[i][j]=dp[i-1][j]+grid[i][j]
                 else:
-                    dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j]
+                    dp[i][j]=min(dp[i-1][j]+grid[i][j],dp[i][j-1]+grid[i][j])
         return dp[-1][-1]
+

@@ -25,17 +25,19 @@
 
 class Solution:
     def integerBreak(self, n: int) -> int:
-
-        #确定dp数组及其下标含义：dp[i]:将正整数i拆分得到对应的最大乘积的结果。
-        #递推公式：j*(i-j)，j为0到j。
-
+        #1、确定dp[i]数组含义：正整数i拆分成两个正整数的最大乘积为dp[i]
         dp=[0 for i in range(n+1)]
+        #2、确定递推公式：两种方法得到dp[i]，1、dp[i-j]*j；2、(i-j)*j
+        # dp[i]=max(dp[i-j]*j,(i-j)*j)
+        #3、初始化：dp[2]=1;
         dp[2]=1
+        #4、确定遍历方向：
 
         for i in range(3,n+1):
             for j in range(1,i):
-                dp[i]=max(dp[i],max((i-j)*j,dp[i-j]*j))
-        print(dp)
-        return dp[n]
+                #由于每次从0到i的迭代都会生成一个dp[i]，所以还需要对多个dp[i]进行比较，挑选出最大的那一个！
+                #所以最终的公式为：dp[i]=max(dp[i],max(dp[i-j]*j,(i-j)*j))
+                dp[i]=max(dp[i],max(dp[i-j]*j,(i-j)*j))
+        return dp[-1]
 
 

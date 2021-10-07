@@ -39,20 +39,23 @@
 
 class Solution:
     def climbStairs(self, n: int) -> int:
-        #特殊情况
+        #1、dp[i]:爬i个台阶有dp[i]种方法
+
+        #2、递归方程（状态转移方程）：dp[i]=dp[i-1]+dp[i-2]
+        #我们用 f(x)表示爬到第 x 级台阶的方案数，考虑最后一步可能跨了一级台阶，也可能跨了两级台阶
+        #所以我们可以列出如下式子：f(x) = f(x - 1) + f(x - 2)
+
+        #3、初始化：dp[1]=1,dp[2]=2;
         if n<=2:
             return n
-        #创建dp数据（由于n个台阶且索引为0的元素未被使用，所以需要创建n+1个元素）
-        lis=[-1]*(n+1)
-        #dp数组的初始化
-        lis[1]=1
-        lis[2]=2
-        #
+        dp=[0 for i in range(n+1)]
+        dp[1]=1
+        dp[2]=2
+        #4、确定遍历方向
         for i in range(3,n+1):
-            #递推公式
-            lis[i]=lis[i-1]+lis[i-2]
+            dp[i]=dp[i-1]+dp[i-2]
 
-        return lis[n]
+        return dp[-1]
 
 
 
