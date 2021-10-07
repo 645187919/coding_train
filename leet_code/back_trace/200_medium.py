@@ -44,6 +44,9 @@
 #同类型的题（79,130）
 # 参考：https://leetcode-cn.com/problems/number-of-islands/solution/200dao-yu-shu-liang-ju-zhen-sou-suo-top3-ww71/
 
+# 二维平面上的DFS模板：https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/
+
+
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
 

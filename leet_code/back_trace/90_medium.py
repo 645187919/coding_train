@@ -26,25 +26,21 @@
 
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-
-
         res=[]
         nums_len=len(nums)
-        #注意排下序，方便查找重复元素，避免重复操作
+        #排下序，后面直接在回溯的for循环中，剔除重复结果集。
         nums.sort()
 
         def helper(path,choise):
             #无终止条件
-            if nums_len>=len(path) and res!=[]:
+            if nums_len>=len(path):
                 res.append(path)
-            else:
-                res.append([])
 
             for i in range(len(choise)):
+                #若二叉树行元素相同则跳过（前面已经执行）
                 if choise[i]==choise[i-1] and i!=0:
                     continue
                 else:
                     helper(path+[choise[i]],choise[i+1:])
         helper([],nums)
         return res
-
