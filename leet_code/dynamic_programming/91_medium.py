@@ -43,6 +43,9 @@
 # 1 <= s.length <= 100
 # s 只包含数字，并且可能包含前导零。
 
+#参考：https://leetcode-cn.com/problems/decode-ways/solution/gong-shui-san-xie-gen-ju-shu-ju-fan-wei-ug3dd/
+
+
 class Solution:
     def numDecodings(self, s: str) -> int:
 
@@ -71,4 +74,37 @@ class Solution:
         return dp[-1]
 
 
+# 参考：https://leetcode-cn.com/problems/decode-ways/solution/c-wo-ren-wei-hen-jian-dan-zhi-guan-de-jie-fa-by-pr/
+
+class Solution:
+    def numDecodings(self, s: str) -> int:
+
+        if s.startswith('0'):
+            return 0
+        n=len(s)
+        if n<=1:
+            if s[0]!='0':
+                return 1
+            else:
+                return 0
+
+        #dp[i]:长度为i+1的字符串的解码总数
+        dp=[0 for i in range(n+1)]
+
+        dp[0]=1;dp[-1]=1
+        for i in range(1,len(s)):
+            # '0'只有10和20才有对应字母，不然 返回 0
+            if s[i]=='0':
+                if s[i-1]=='1' or s[i-1]=='2':
+                    dp[i] = dp[i-2]
+                else:
+                    return 0
+            # 看分析，如果是 10~26，则 dp[i] = dp[i-1] + dp[i-2]，否则 编码数目不变，仍然为 dp[i-1]
+            else:
+                if 10<int(s[i-1:i+1])<27:
+                    dp[i] = dp[i-1] + dp[i-2]
+                else:
+                    dp[i] = dp [i-1]
+        # 由于dp最后一位初始化为 1，所以返回 dp的倒数第二个
+        return dp[-2]
 

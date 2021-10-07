@@ -26,3 +26,50 @@ class Solution:
                         b = store[m][n-1] if n!=0 else 0 #左方格子
                         store[m][n] = a+b
         return store[-1][-1]
+
+
+#若遇到障碍，则将其dp值设为0。若在0行0列遇到障碍，则其后面的dp值全部为0。
+#也可以初始化每个dp值为0,然后将dp[0][0]初始化为1，这样就避免遇到障碍物时将其后面的dp值全部设置为0的处理。
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+
+        #dp[i][j]：到该位置有多少条不同的路径
+        m=len(obstacleGrid)
+        n=len(obstacleGrid[0])
+
+
+        #递推公式：dp[i][j]=dp[i-1][j]+dp[i][j-1]  #前提条件，非0行0列的节点，且该节点不为障碍物。
+        #若节点为障碍物，则dp[i][j]=0(即初始位置到障碍物有0条路径)
+        #若节点为0行0列的节点，则dp[i][j]=1,注意若障碍物后面，则全部为0。
+
+        dp=[[1]*n for i in range(m)]
+
+        #初始化:将0列和0行中障碍物后面的dp值都设置为0。
+        #(0列)
+        for i in range(m):
+            if obstacleGrid[i][0]==1 :
+                while i<m:
+                    dp[i][0]=0
+                    i+=1
+                break
+        #0行
+        for i in range(n):
+            if obstacleGrid[0][i]==1 :
+                while i<n:
+                    dp[0][i]=0
+                    i+=1
+                break
+
+        print(dp)
+        #遍历方向：
+        for i in range(m):
+            for j in range(n):
+                if i==0 or j==0:
+                    continue
+                else:
+                    if obstacleGrid[i][j]==1:
+                        dp[i][j]=0
+                    else:
+                        dp[i][j]=dp[i-1][j]+dp[i][j-1]
+        print(dp)
+        return dp[-1][-1]
