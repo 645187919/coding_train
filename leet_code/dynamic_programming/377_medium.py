@@ -6,7 +6,8 @@
 # @Software: PyCharm
 
 # 377. 组合总和 Ⅳ
-# 给你一个由 不同 整数组成的数组 nums ，和一个目标整数 target 。请你从 nums 中找出并返回总和为 target 的元素组合的个数。
+# 给你一个由不同整数组成的数组 nums ，和一个目标整数 target 。
+# 请你从 nums 中找出并返回总和为 target 的元素组合的个数。
 # 题目数据保证答案符合 32 位整数范围。
 # 示例 1：
 #
@@ -36,7 +37,7 @@
 # 1 <= target <= 1000
 
 #思路：https://leetcode-cn.com/problems/combination-sum-iv/solution/xi-wang-yong-yi-chong-gui-lu-gao-ding-bei-bao-wen-/
-
+#参考代码随想录
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         #dp[i]:凑成目标为i的元素组合的个数
