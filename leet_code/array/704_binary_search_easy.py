@@ -48,12 +48,27 @@ def binary_search(alist, item):
             return binary_search(alist[mid+1:], item)
     return False
 
+#20211016 update  递归
+def bs(list,start,end,target):
+    mind=(start+end)//2
+    print(mind)
+
+    if list[mind]==target:
+        # print("find")
+        return mind
+    elif list[mind]>target:
+        return bs(list,start,mind,target)
+    elif list[mind]<target:
+        return bs(list,mind,end,target)
+    else:
+        return -1
+
 
 
 li=[17, 20, 26, 31, 44, 54, 55, 77, 93]
-
-print(binary_search(li, 20))
-print(binary_search(li, 21))
+print(bs(li,0,len(li),20))
+# print(binary_search(li, 20))
+# print(binary_search(li, 21))
 
 
 # print(binary_search_2(li, 20))
