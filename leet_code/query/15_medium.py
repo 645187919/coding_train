@@ -6,7 +6,8 @@
 # @Software: PyCharm
 
 # 15. 三数之和
-# 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
+# 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，
+# 使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
 # 注意：答案中不可以包含重复的三元组。
 #
 # 示例 1：
@@ -61,6 +62,31 @@ class Solution:
                     while i < j and nums[j] == nums[j + 1]: j -= 1
         return res
 
+
+#回溯：超时！！！
+class Solution:
+    def threeSum(self, nums: [int]) -> [[int]]:
+        nums.sort()
+        res=[]
+        def helper(path,choise):
+            print(path)
+
+            #递归终止条件
+            if len(path)==3 and sum(path)==0:
+                res.append(path)
+                return
+                #满足条件则加入
+            if len(path)==3 and sum(path)!=0:
+                return
+
+            for i in range(0,len(choise)):
+                if i==0:
+                    helper(path+[choise[i]],choise[i+1:])
+                else:
+                    if choise[i]==choise[i-1]:
+                        continue
+                    helper(path+[choise[i]],choise[i+1:])
+        helper([],nums)
 
 
 

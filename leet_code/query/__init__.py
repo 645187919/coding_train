@@ -8,12 +8,13 @@
 #
 dic={"a":1,"b":2}
 print(dic.values())
+
 #
 # print(dic["a"])
 # # print(dic["c"])
-# for i in dic.items():
-#     print(i)
-#     print(i[0])
+for i in dic.items():
+    print(i)
+    print(i[0])
 # print(len(dic))
 #
 # a=123
@@ -85,3 +86,6 @@ print([(key,val) for key,val in tmp.items()])
 # res_1=sorted(res,key=lambda x:x[1])
 # print(res_1)
 
+lisa=[1,3,2]
+lisa.sort()
+print(lisa)
