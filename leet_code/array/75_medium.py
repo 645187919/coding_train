@@ -55,7 +55,8 @@ class Solution:
                 #cur+1是由于当前cur指针对应的值已为确认的值；
                 cur+=1
                 start+=1
-            #等于2将右指针扩大一位，索引实质减小
+            #等于2将右指针扩大一位，索引实质减小（并未更改cur指针，
+            # 也就是交换元素后，仍会对交换后的元素进行处理）
             elif nums[cur]==2:
                 #将end数组（2数组）扩大一位
                 nums[cur],nums[end]=nums[end],nums[cur]

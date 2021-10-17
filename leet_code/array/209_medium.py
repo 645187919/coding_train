@@ -67,7 +67,7 @@ class Solution:
             #元素的累加值
             tmp_total+=nums[right]
             #若当前窗口的累加值满足条件，则求最小的长度，并剔除左索引值后，再循环判断。
-            while  tmp_total>=target:
+            while tmp_total>=target:
                 result=min(result,right-left+1)
                 tmp_total-=nums[left]
                 left+=1

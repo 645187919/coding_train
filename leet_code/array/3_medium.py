@@ -93,3 +93,28 @@ class Solution:
             #将s[i]加入子串子集。
             lookup.add(s[i])
         return max_len
+
+#滑动窗口：
+# 思路：
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+
+        len_s=len(s)
+        if len_s<=1:
+            return len_s
+        left=0
+        result=-float("inf")
+        tmp=[]
+        for right in range(len_s):
+            #若元素不在窗口中，则加进去，更新长度
+            if s[right] not in tmp:
+                tmp+=s[right]
+                result=max(len(tmp),result)
+            #若元素在窗口中，则获取元素的位置，对窗口重新赋值,并将重复的元素加进来。重新更新result值。
+            else:
+                index=tmp.index(s[right])
+                tmp=tmp[index+1:]
+                tmp.append(s[right])
+                result=max(len(tmp),result)
+
+        return result
