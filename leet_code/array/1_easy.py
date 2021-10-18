@@ -26,13 +26,17 @@
 #思路二：将数组存储到词典中，然后返回对应的索引（用字典模拟哈希求解）
 
 def twoSum(nums, target):
-    hashmap={}
-    for ind,num in enumerate(nums):
-        hashmap[num] = ind
-    for i,num in enumerate(nums):
-        j = hashmap.get(target - num)
-        if j is not None and i!=j:
-            return [i,j]
+    #val值可以互相覆盖，或者说如果有多个val值相同只存一个即可。
+    #我们的目标是获取满足条件的不同的索引值。 后面仍会对数组进行遍历，只要保证相同的key，对应的vla索引不同即可！
+    dic={}
+
+    for index,val in enumerate(nums):
+        dic[val]=index
+
+    for index,val in enumerate(nums):
+        if dic.get(target-val) and  index!=dic.get(target-val):
+            return [index,dic.get(target-val)]
+
 
 
 class Solution:
