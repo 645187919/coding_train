@@ -54,8 +54,18 @@ class Solution:
 
 
 
+#方法2
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        ori_len=len(nums)
+        start=0
+        while start<ori_len:
+            while start<ori_len and nums[start]==val:
+                nums.pop(start)
+                ori_len-=1
+            start+=1
 
-
+        return ori_len
 
 
 
