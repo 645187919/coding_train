@@ -27,7 +27,7 @@
 # 0 <= n <= 1000
 # 0 <= m <= 1000
 
-
+#两个有序的数组
 class Solution:
     def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
         m=len(matrix)
